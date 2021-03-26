@@ -6,6 +6,11 @@ https://prismjs.com/download.html#themes=prism-okaidia&languages=bash+python&plu
  * @author ocodia
  */
 
+ samp {
+  font-weight: bold;
+  font-size: 0.875em;
+ }
+
  kbd {
   background-color: #eee;
   border-radius: 3px;

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>jupytercolab</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">JUPYTER NOTEBOOKS in GOOGLE COLAB</h1>
+  <p class="w3-xlarge">you will use jupyter notebooks in google's colaboratory for this course... here's how to get them set up</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>What is a jupyter notebook?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  A jupyter notebook combines instructions and text with editable, executable
+  Python code.
+</h5>
+
+<p>
+  In this course, we will be using
+  <a href="https://jupyter.org/" target="_blank">jupyter notebooks</a>
+  to manage our programming exercises. Anytime we need to write, edit or
+  execute code, we will do so through a jupyter notebook. Skeleton notebooks
+  will be provided for every course exercise, so you won't need to write your
+  own notebook from scratch. You are free to modify your notebook by adding
+  text notes or other informational resources, and you will often be required
+  to write, edit and/or execute code directly from your notebook.
+</p>
+
+<p>
+  Jupyter notebooks are not just for this course; they are a very popular
+  mechanism for sharing annotated Python code amongst professionals in a wide
+  variety of fields related to computer programming and data science. Once
+  you learn to use jupyter notebooks effectively, you can use them to access
+  existing content and share your code and data analyses with others.
+</p>
+
+<p>
+  Although jupyter notebooks are closely associated with the Python programming
+  language and widely used in the Python programming community, jupyter
+  notebooks can also be used to write, edit, execute and share code written in
+  other programming languages. So don't think they are just a 'Python thing'.
+</p>
+
+<br>
+<h1>What is google colaboratory?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Google's colab is a platform for running jupyter notebooks.
+</h5>
+
+<p>
+  <a href="https://colab.research.google.com" target="_blank">Google colaboratory</a>
+  or 'colab' is an online platform allowing anyone to access, modify, execute
+  and share jupyter notebooks. Google colab connects your jupyter notebooks to
+  high-performance computing resources using only a basic web browser, making
+  it an incredibly powerful tool that can open the door to high-performance
+  computing for users who don't necessarily want to become professional
+  programmers.
+</p>
+
+<p>
+  If you dig a bit deeper, you'll find that google colab is basically just a
+  specific instance of a platform called
+  <a href="https://jupyter.org/hub" target="_blank">"jupyter hub"</a>, which
+  is just a general server for sharing jupyter notebooks. So, google colab
+  is a jupyter hub server, and there are other jupyter hub servers that are
+  not google colab. Some of the nice things about colab is that it is free
+  for public use, provides access to high-performance hardware and integrates
+  with github and other repositories that support easy file sharing.
+</p>
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-sticky-note-o fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-user-circle fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>How do I access the jupyter noteboooks for this course?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  You will need to log into google colab and access the course jupyter
+  notebooks through github. Here we'll show you how.
+</h5>
+
+<p>
+  Let's get started and run your first jupyter notebook through google colab.
+</p>
+
+<p>
+  In this web page, we'll describe in text how to log into google colab,
+  access this course's first jupyter notebook through github and run the
+  jupyter notebook using colab. We also provide a tutorial video at the
+  end, which demonstrates the process. I would recommend reading through
+  the text description and watching the video first, and then work through
+  the process on your own, so you can run your first jupyter notebook
+  through colab.
+</p>
+
+<h3>My first jupyter notebook in colab</h3>
+
+<p>
+  To access this course's first jupyter notebook, you'll need to log into
+  google colab. Open a web browser and navigate to
+  <a href="https://colab.research.google.com", target="_blank">https://colab.research.google.com</a>.
+  You'll see an introductory page, which is actually a jupyter notebook!
+  This introductory page provides some detailed information about google
+  colab and how to use it. I encourage you to work through this information
+  and try out the examples, if you'd like. But this introductory page is not
+  important for our course.
+</p>
+
+<p>
+  The first important thing you'll need to do in google colab is to make sure
+  you are logged in using a google account. Look in the upper right-hand
+  corner of the google colab landing page. If you are already logged into
+  a google account, you should see your account icon in the upper-right
+  corner. If this is the case, you are ready to access the course jupyter
+  notebooks.
+</p>
+
+<img src="media/colab_loggedin.png" alt="Google colaboratory landing page showing account icon" width="600">
+
+<p>
+  If you see a button labelled "Sign in" in the upper-right corner of the
+  google colab landing page, you will need to log into a valid google account
+  in order to access colab and run the course jupyter notebooks.
+</p>
+
+<img src="media/colab_signin.png" alt="Google colaboratory landing page showing sign in button" width="600">
+
+<p>
+  Click on the "Sign in" button; you'll be taken to the google account sign-in
+  page. If you have a google account (or many), you should see your google
+  accounts listed, and you can choose whichever account you'd like to use to
+  complete
+  this course. If you don't have an existing google account, you can create
+  a new account by following the instructions.
+</p>
+
+<img src="media/google_acct_choose.png" alt="Google account sign-in page" width="600">
+
+<p>
+  If you have a University of Florida email address and gatorlink credentials,
+  you can use your UF credentials to access your existing UF-associated google
+  account. If your UF email address is listed as one of your google accounts,
+  you can click on this account to sign in; you will be taken to the UF login
+  page, where you will need to use your gatorlink id and password to login,
+  and you will need to go through two-factor authentication.
+</p>
+
+<img src="media/google_acct_linkeduf.png" alt="Google account sign-in page with UF-associated account already linked" width="600">
+
+<p>
+  If you don't see your UF email address listed in your google accounts, and
+  you would like to use your UF-associated google account for this course,
+  click on "Use another account".
+</p>
+
+<img src="media/google_acct_adduf.png" alt="Google account sign-in page; click 'Use another account' to add your UF account to google" width="600">
+
+<p>
+  Enter your UF email address in the "Sign in"
+  form, and click the "Next" button to authenticate. You will be taken to the
+  UF login page, where you will need to use your gatorlink id, password and
+  two-factor authentication to login.
+</p>
+
+<img src="media/google_acct_adduf_signin.png" alt="Google account sign-in page; enter your UF email address to add your UF account to google" width="600">
+
+<p>
+  Once you log in, you should see your account icon in the upper-right corner
+  of the google colab landing page, and you should also see a 'popup' allowing
+  you to access jupyter notebooks through various means.
+</p>
+
+<img src="media/colab_login_page.png" alt="Google colaboratory landing page after login, showing account icon in upper-left corner and popup window for accessing jupyter notebooks" width="600">
+
+<p>
+  Now that you're logged into google colab, you need to access the course
+  jupyter notebooks.
+</p>
+
+<p>
+  All the course jupyter notebooks are available through a github repository.
+  <a href="https://github.com/", target="_blank">Github</a> is a free
+  file-sharing and versioning platform built using the "git" distributed
+  version-control system. Github is one of the most popular software-sharing
+  platforms; it can also be used as a web server (this page is hosted on
+  github!).
+</p>
+
+<p>
+  To access this course's first jupyter notebook, click on the "GitHub" tab
+  on the popup.
+</p>
+
+<p>
+  You should see a form with a text input and the prompt:
+  "Enter a GitHub URL or search by organization or user".
+</p>
+
+<img src="media/colab_githubtab.png" alt="Google colaboratory landing page after login, showing github tab" width="600">
+
+<p>
+  All of this course's jupyter notebooks are stored in my "ALS3200C" repository.
+  Enter the following text in the GitHub search, and hit Enter:
+</p>
+
+<pre>
+  https://github.com/bryankolaczkowski/ALS3200C
+</pre>
+
+<p>
+  Include the entire URL, including the "https://" part. After hitting Enter,
+  the page may cycle for a bit, and then you should see a list of available
+  jupyter notebooks. Each notebook in the list will have a GitHub icon attached
+  to it, which looks like a little cartoon kitty silhouette, and each jupyter
+  notebook will end with the fine-name extension, ".ipynb".
+</p>
+
+<p>
+  Find the first course notebook, which is called
+</p>
+
+<pre>
+  helloworld.ipynb
+</pre>
+
+<p>
+  and will not necessarily be the first notebook on the list! Click on the
+  "helloworld.ipynb" name to open this notebook in colab. The popup should
+  disappear, and you should see a page with "welcome to jupyter notebooks!"
+  displayed at the top.
+</p>
+
+<img src="media/colab_selectnotebook.png" alt="Google colaboratory page showing github notebook menu" width="600">
+
+<p>
+  For convenience, I made a short video demonstrating how to log into google
+  colab and access the helloworld.ipynb jupyter notebook.
+</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QgbSJUXlAjs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>
+  The helloworld.ipynb notebook is a <em>very</em> simple example, which is
+  just here to introduce you to the jupyter notebook, google colab, and to
+  help you troubleshoot any login problems.
+</p>
+
+<p>
+  Please make sure you can log into google colab, access the helloworld.ipynb
+  jupyter notebook, and read through the notebook and execute the interactive
+  python code.
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>aidef</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">WHAT IS AI?</h1>
+  <p class="w3-xlarge">if it ain't a deep neural network... it ain't artificial intelligence</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>So, <em>only</em> neural networks are AI?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Well, maybe not, but...
+</h5>
+
+<p>
+  You've probably heard a bunch of different terms associated with
+  artifical intelligence, some of the most common being "deep learning"
+  and "machine learning". Like many concepts, the meanings of these
+  terms are fuzzy and can change depending on your perspective. Based
+  solely on a general semantic point of view, we could reasonably define
+  "artificial intelligence" as any system that mimics
+  natural intelligence using computers. Of course, then we'd need to define
+  natural intelligence! Historically, we generally think of an AI as
+  'useful' if it can perform as good as or better than a professional human
+  at a given task.
+</p>
+
+<p>
+  But continuing on, "machine learning" could be defined as a type of
+  "artificial intelligence" that works by providing training data to the
+  computer and allowing the computer to 'learn' how to be 'intelligent'
+  by analyzing the training data. If we continue along this general
+  semantic path, "deep learning" could be reasonably defined as
+  a specific type of "machine learning"
+  that uses very large (or "deep") stacks of neural network layers to
+  learn from training data.
+</p>
+
+<p>
+  Semantically, these definitions basically make sense and organize
+  AI-related concepts into an "is a" hierarchy: deep learning <em>is a</em>
+  type of machine learning approach, which in turn <em>is a</em> type of
+  artificial intelligence. This conceptual organization allows us
+  to draw an organizational diagram like the one below, which clearly
+  illustrates the "is a" hierarchy based on set-overlaps.
+</p>
+
+<img src="media/ai_venn.png" alt="deep learning is a machine learing is an artificial intelligence" width="500">
+
+<p>
+  From a conceptual or theoretical perspective, we have defined many of
+  the core terms commonly associated with AI nowadays, and we even have
+  a clear and concise diagram to help us organize these ideas.
+</p>
+
+<p>
+  However, this conceptual perspective can easily get us into big trouble
+  'in the field', when we try to apply AI-related ideas to analyze real data
+  and address real complex problems. This trouble arises primarily because
+  our conceptual organization provides little guidance to help us decide
+  how to choose a methodology or approach that is suitable to a specific
+  problem, and it fails to coincide with how we generally think about the
+  practical advantages and disadvantages of different types of methods
+  commonly associated with "artificial intelligence", "machine learning"
+  and "deep learning".
+</p>
+
+<p>
+  If we take a <em>practical</em> perspective, what we want to be able to
+  do 'in the field' is to make accurate and reliable inferences from data.
+  To do so, we need some guidance to help us select the appropriate inference
+  method, given the data we expect to have and the complexity of the
+  inference we would like to make.
+</p>
+
+<p>
+  The first thing we need to accept is that <em>all</em> reliable
+  data-driven inferences
+  rely on statistical analysis. Whether you're doing a basic t-test with 2
+  degrees of freedom or taining a 43-million-parameter inception network,
+  you are doing statistical data analysis.
+</p>
+
+<p>
+  Once we accept that reliable data analysis is built on statistics, we can
+  start to use concepts from statistics to organize AI-related terms. For
+  example, "machine learning" is simply a general approach for fitting a
+  statistical model to your data. And "deep learning" is just fitting a
+  big, complex neural-network model to your data. Statistically, 'fitting'
+  just means optimizing the parameters of the model so they minimize a
+  user-defined 'loss function'. So, from a statistical perspective, 'learning'
+  is not that magical; it just means that you are optimizing your model's
+  fit to some specific data, given your loss function.
+</p>
+
+<p>
+  As an example, let's consider a simple linear model:
+</p>
+
+<pre class='language-none'>
+y = m * x + b
+</pre>
+
+<p>
+  This linear model relates two variables, x and y. Given a value for x, the
+  model calculates the corresponding y value using two "free parameters": m
+  and b, where
+  m is the slope of the line and b is the y-intercept (ie, the value of y when
+  x is zero).
+</p>
+
+<p>
+  The free parameters of the model, m and b, are unspecified; they can take
+  on any values we'd like, but we can't use the model until we figure out
+  what values we should choose for m and b. So, how do we choose appropriate
+  values for m and b?
+</p>
+
+<p>
+  Given some 'training data': examples of 'real' x,y pairs, we can 'learn'
+  the appropriate values for m and b by 'fitting' our linear model to the
+  training data. How do we do this? Let's start by plugging in some 'random'
+  values for m and b:
+</p>
+
+<pre class='language-none'>
+y = 2.4851 * x + -18.3284
+</pre>
+
+<p>
+  Now our linear model is fully-specified; we can use it to calculate the
+  corresponding y value for any value of x. But is the model any good?
+</p>
+
+<p>
+  To determine how good our fully-specified model is, we take the x values
+  from the training data, use our model to calculate the corresponding
+  predicted y
+  values (often denoted y&#770;, or "y-hat"), and then see how 'close' our
+  predicted y&#770; values are to the 'true' corresponding y values in
+  our training data.
+</p>
+
+<p>
+  The user-specified "loss function" quantifies how 'close'
+  our predicted y&#770; values are to the true y values in the training
+  data. We can use any loss function
+  we'd like, the most common in this case probably being root-mean-square
+  deviation, or
+  "RMSD". We won't worry about how RMSD is calculated right now. What matters
+  is that the loss function, whatever it is, quantifies how 'good' or 'bad'
+  our model is at predicting the true y values from the corresponding x values
+  in our training data. We can then keep trying new values for the free
+  parameters in our model (m and b, in this case), until the loss function
+  is as small as we can possibly make it.
+</p>
+
+<p>
+  Once we have found the values for m and b that minimize the loss function,
+  given our training data, we say our model has been 'fit' to the training
+  data. Alternatively, we could say that our model has 'learned' the
+  best-fit values for m and b from the training data.
+</p>
+
+<p>
+  Really, that's all "machine learning" is, from a statistical perspective;
+  it's just fitting a model's free parameters to some training data! The
+  process is the same whether your model is a simple linear one with two
+  free parameters or a big, complex neural network with millions of
+  free parameters. So, "deep learning" isn't some magical new thing, either;
+  it's just using the same model-fitting process to fit a big, complex
+  model!
+</p>
+
+<p>
+  No matter what model we have, the "learning" part is essentially the same:
+  fit the model to your training data by minimizing your specified loss
+  function. All statistical inferences basically work this way.
+</p>
+
+<p>
+  From a practical perspective, then, reliable statistical analysis means
+  choosing
+  the statistical model that is most appropriate for the data and inference
+  problem at hand. This is often couched in terms of the "bias-variance
+  tradeoff".
+</p>
+
+<p>
+  Without getting too technical, we can think of there being two primary
+  sources of inference error:
+</p>
+
+<ol>
+  <li>
+    Bias error - occurs when your statistical model is too simple for the
+    inference problem.
+    <p>
+      All models make assumptions about the data and the structure of the
+      inference problem. For example, a linear model assumes that the data
+      follow a straight line. In general, the simpler the model, the more
+      assumptions it makes. Any assumption a model makes will "bias" the
+      model in some way. For example, a linear model will <em>only</em>
+      infer a linear relationship among the data, even if the real relationship
+      is non-linear.
+      Bias error is sometimes called "underfitting". It can generally
+      be alleviated by using a more complex model.
+    </p>
+  </li>
+  <li>
+    Variance error - occurs when your statistical model is too complex for
+    the amount of data you have.
+    <p>
+      So, why not just use the 'most complex' model available for <em>all</em>
+      data analysis? Well, if the model is too complex, it can miss the
+      general trends in the data that you want it to find, and instead start
+      to fit the random noise in the data. When this happens, the model may
+      <em>appear</em> to fit the data <em>extremely</em> well, but it doesn't
+      actually tell you anything about the structure of the data and can
+      perform very poorly in practice. Variance
+      error is often called "overfitting". It can be alleviated by collecting
+      more data or by simplifying the model.
+    </p>
+  </li>
+</ol>
+
+<p>
+  Most real-world inference problems are fairly complex.
+  Based on the bias-variance tradeoff, we should therefore try to use the
+  most complex
+  model we can, given the amount of data we have, to avoid underfitting.
+  If we have <em>tons</em>
+  of data, we can probably avoid overfitting, even if we use a very complex
+  model. However, if we have limited data, we will need to use a simpler
+  model to avoid overfitting. The 'sweet spot' in the bias-variance tradeoff
+  is found when we select a model that avoids both under- and over-fitting,
+  given the data we have.
+</p>
+
+<p>
+  So, what types of models are available to us?
+</p>
+
+<p>
+  All classical statistical modeling approaches are essentially riffs on
+  linear models; they are linear (or nealy-so). Commonly-used t-tests,
+  correlations, regressions, ANOVA, Chi-square tests, principle component
+  analyses... all basically linear models. These are the <em>simplest</em>
+  statistical models we have. They generally perform best when there is
+  limited data or the inference problem is very simple. Classical statistical
+  models tend not to overfit but will underfit in many cases.
+</p>
+
+<p>
+  All methods commonly associated with the term "machine learning" are
+  essentially extensions of classical statistical modeling approaches that
+  introduce structured non-linear components; they are close-to-linear.
+  Generalized linear models (yep, linear), fancy regressions like lasso,
+  ridge or Bayesian regression, support vector machines, naive Bayes
+  classifiers, decision trees, and simple neural networks... all introduce
+  'a little bit' of non-linearity into what is basically a linear model.
+  These models are a little more complex than classical statistical models.
+  They generally perform best with intermediate amounts of data; they can
+  overfit when data are limited and underfit when the inference problem
+  is highly non-linear.
+</p>
+
+<p>
+  Deep learning methods based on very large neural networks are different.
+  Although the basic neural network component is a simple linear model,
+  deep networks typically incorporate a very high degree of non-linearity.
+  In fact, it has been known for some time that, under fairly general
+  conditions, neural networks can reliably approximate <em>any</em> functional
+  form (
+  <a href="https://link.springer.com/article/10.1007%2Fs10472-020-09723-1"
+   target="_blank">eg, Kratsios, 2021</a>). Because of their complexity,
+  deep learning methods typically require very large amounts of data to
+  avoid overfitting. They typically don't underfit.
+</p>
+
+<p>
+  Below is a very common graph illustrating the relationships among
+  classical statistical modeling approaches (ie, linear models), methods
+  from machine learning (ie, near-linear models) and deep learning methods.
+  This particular graph is from Moolayil (2019, An introduction to deep
+  learning and Keras), but there are similar diagrams all over the internet.
+</p>
+
+<p>
+  The graph plots model performance or accuracy on the Y-axis against data set
+  size on the X-axis, assuming that the analysis goes well and avoids gross
+  under- or over-fitting errors. The take-home message is that deep learning
+  methods are the <em>only</em> approaches we know of that continue to get
+  better and better as data set size increases, under real-world conditions.
+  At some point, machine learning methods 'saturate' due to their limited
+  non-linearity, and giving them more data to analyze doesn't help them to
+  provide more reliable inferences. Classical statistical approaches saturate
+  at even smaller data set sizes, due to their strong linear constraints.
+  However, because deep learning models can essentially approximate
+  <em>any</em> complex function, they can reliably identify highly non-linear
+  relationships among the data, given enough data to analyze. How much data?
+  contemporary deep learning models are commonly trained using 100-million
+  data samples or more! We are unlikely to see such large data sets in the
+  agricultural or life sciences.
+</p>
+
+<img src="media/stats_ml_ai_comparison.jpg" alt="Deep learning beats machine learning beats statistics as we get more data. From Moolayil (2019) An introduction to deep learning and keras" width="500">
+
+<p>
+  Of course, what this graph is ignoring is the potential for overfitting
+  with complex models. When data sets are very small, it can be
+  <em>extremely</em> difficult to avoid overfitting errors, particularly with
+  deep learning models. The bias-variance tradeoff ensures that deep learning
+  is not <em>always</em> the best method to use for every problem! But, as
+  we'll see later on in this course, it is possible to implement many (all?)
+  classical statistical models and machine learning models using neural
+  networks!
+</p>
+
+<h2>So, what is "artificial intelligence", then?</h2>
+
+<p>
+  Based on this discussion, I'm going to go out on a limb and provide a
+  <em>practical</em> definition of "artificial intelligence" as:
+  <em>using very complex neural networks to analyze data</em>.
+</p>
+
+<p>
+  Please feel free to disagree with my definition; I'm certain many, many
+  people will, and they will have good reason to. However, I will say that
+  this practical definition has two things going for it.
+</p>
+
+<ol>
+  <li>
+    It coincides with how professionals working in the field use the term.
+    <p>
+    If you attend a professional conference on AI or read research papers
+    in the field, they will be primarily focused on deep neural networks.
+    If you start saying you are doing AI research or using AIs, but you aren't
+    using deep neural networks, people in the field are going to start
+    looking at you sideways.
+    </p>
+  </li>
+  <li>
+    Deep neural networks are the <em>only</em> statistical inference methods
+    that have ever achieved human-level (or super-human) performance on
+    complex inference tasks.
+    <p>
+    So, if we look back at our original 'semantic'
+    definition of AI as 'mimicking natural intelligence', deep neural
+    networks are the only methods that actually do that.
+    </p>
+  </li>
+</ol>
+
+<p>
+  Even if you strongly disagree with equating AI with deep neural networks, it's
+  clear from even a very casual perusal of the field that neural nets are
+  by far the dominant paradigm for doing AI today. Of course, this is likely
+  to change in the future, whenever a new methodology comes out that is
+  better than deep neural networks. And of course it wasn't always the case
+  that neural networks dominated the AI scene.
+</p>
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-smile-o fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-rocket fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>A brief history of "artificial intelligence"</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Lest we be doomed to repeat the past.
+</h5>
+
+<p>
+  The concept of a machine that could interact with humans in a variety
+  of situations, essentially as a 'peer', gained widespread popularity through
+  1940s science fiction, in which "AIs" were typically portrayed
+  as anthropomorphic robots.
+</p>
+
+<p>
+  By the 1950s, computing theorists were developing the initial ideas that
+  computers could 'learn' to 'think' and 'reason' like human beings. Around
+  the same time, researchers took inspiration from 'biology' to create the
+  first artificial neurons (called "perceptrons"); these simple linear
+  computing units could be 'hooked together' to form 'neural networks'.
+  Unfortunately, the computing power of the day prevented neural networks
+  from being applied to complex problems.
+</p>
+
+<p>
+  Most of the development of "artificial intelligence" during the 20th
+  century relied heavily on the computer's ability to perform highly-repetitive
+  tasks accurately and much faster than humans. The main ideas behind
+  things like 'logic programming' and 'expert systems' were that, if we
+  could somehow 'program' a computer to store a set of 'rules' or 'guidelines'
+  that are similar to how a human expert might think about a problem, then
+  the computer's speed could be utilized to 'search' through those rules
+  very quickly, and thus 'mimic' how a human expert might think.
+</p>
+
+<p>
+  Unfortunately, researchers quickly found out that it was very difficult to
+  quantify a human expert's 'rules' or 'guidelines' into a form that a computer
+  could use to perform a specific task. Nonetheless, given enough programmers
+  and enough computing power, large 'rule-search' systems could out-compete
+  humans at complex decision-making tasks like chess. By the late 1990s,
+  computers had won the human-vs-computer meta-chess match.
+</p>
+
+<p>
+  Around the same time, research in neural networks was re-fueled by the
+  re-discovery of a 1960s algorithm that allowed networks of
+  interconnected perceptrons to efficiently fit training data. The
+  "back propagation algorithm" (still used today!) uses the chain rule
+  from calculus to efficiently calculate partial derivatives, allowing
+  models to update their parameter values more efficiently, so they can
+  fit data with fewer parameter updates.
+  Unfortunately,
+  computing power still severely limited the size and complexity of neural
+  networks.
+</p>
+
+<p>
+  It wasn't until around 2010 that researchers realized graphics
+  processing units (GPUs) could be used to radically speed up neural netowrk
+  'training'. GPUs had been around since the 1970s as specialized hardware
+  that was responsible for displaying computer-generated graphics on a
+  monitor. By the 1990s, GPUs had become sophisticated 'specialized
+  computers' generating the rapid succession of images needed for
+  2D and 3D video games. Computer graphics generation relies
+  heavily on the rapid manipulation of high-dimensional matrices (now called
+  "tensors"). Specialized GPU hardware allows tensor manipulations to
+  be distributed across a very large number of parallel processors, so
+  these manipulations can be performed extremely quickly (ie, in 'real time').
+  This 'real time' image generation is needed to support realistic graphics
+  in video games, particularly for games having a 3D environment.
+</p>
+
+<p>
+  Interestingly, the same high-speed tensor manipulations used to generate
+  realistic video-game worlds can also be used to do linear algebra,
+  solve differential equations, and fit statistical models! Once researchers
+  realized that GPUs from gaming machines could be used to do math and
+  statistics, they wrote special programming libraries that allowed GPUs
+  to be programmed just like any other computer. The most widely-used
+  such library, CUDA, was introduced by NVIDIA in 2007. With a programming
+  interface to the GPU, researchers could now use GPUs to 'speed up'
+  mathematical and statistical computations, including the back-propagation
+  algorithm used to train neural networks!
+</p>
+
+<p>
+  The availability of back-propagation on high-speed GPUs was a game-changer
+  for neural networks, allowing very large networks with millions of
+  parameters to be fit to extremely large data sets in a reasonable amount
+  of time (days or weeks vs decades or millenia!). It has been estimated that
+  GPUs can train neural networks about 250-times faster than typical CPUs.
+</p>
+
+<p>
+  The combination of high-speed GPU hardware with availability of very large
+  training data sets allowed the complex modeling capabilities of "deep"
+  neural networks to really shine. Between around 2010-2015, we saw a dramatic
+  increase in the size of 'state-of-the-art' neural networks and a corresponding
+  dramatic increase in accuracy on complex inference tasks like image
+  recognition and natural language processing. Around this time, neural
+  networks started to perform 'as good as' or 'better than' human experts
+  at complex inference tasks, basically becoming the first real
+  "artificial intelligence" systems.
+</p>
+
+<p>
+  Since around 2015, neural networks have continued to get bigger and bigger,
+  with state-of-the-art models nowadays having hundreds of millions of
+  parameters
+  or more. These models are typically trained on massive computers with
+  parallel arrays of multiple GPU cards using training data sets with hundreds
+  of millions or billions of data samples.
+</p>
+
+<p>
+  But neural network researchers are also realizing that it isn't <em>only</em>
+  size that matters. The way neural networks are connected (ie, the neural
+  network "architecture") can have a huge impact on their performance.
+  Researchers are also devising more complex and specialized neural processing
+  units. While the initial perceptron was a simple linear unit, many of the
+  neuron 'types' used today are capable of much more complex individual
+  computations, including 'memory' and 'attention'.
+</p>
+
+<p>
+  In our view, the immediate future challenge to neural-network based AI is
+  to move beyond their exceptional performance in a handful of very well-studied
+  problems and begin developing AI solutions to problems in <em>any</em>
+  field. This course will focus on applications in the agricultural and
+  life sciences.
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

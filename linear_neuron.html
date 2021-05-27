@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>lineuron</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">WHAT IS A "NEURON"?</h1>
+  <p class="w3-xlarge">a neuron is a linear model</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>But, aren't neural networks 'magic'?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Nope. Just simple linear models.
+</h5>
+
+<p>
+  <a href="./what_is_ai.html" target="_blank">Earlier</a> we outlined the
+  idea that all of classical statistics is just different ways to do
+  linear modeling. While this is a <em>little bit</em> of an
+  over-simplification, we can fix it using some statisical language:
+  <em>Nearly</em> all of classical statistics can be <em>approximated by</em>
+  linear models. If you'd like more information on this topic, please
+  check out <a href="https://lindeloev.github.io/tests-as-linear/"
+  target="_blank">this web page</a> on the subject, which covers quite a
+  few of the most commonly-used statistical tests and includes examples with
+  R code and links to additional information.
+</p>
+
+<p>
+  Just so we're all on the same page, recall that a "linear model" is just
+  an equation of the form:
+</p>
+
+<pre class='language-none'>
+y = m * x + b
+</pre>
+
+<p>
+  where y is the response variable, and x is the explanatory variable.
+  In general, the simple linear model is a function that maps 'known'
+  values of x (called the "independent variable") to corresponding
+  'unknown' values of y (called the "dependent variable", because the
+  value of y 'depends on' the input value of x). For now, we can just
+  think of x and y as real numbers (called "scalars"), but they don't
+  have to be; they could be vectors, matrices, or tensors!
+</p>
+
+<p>
+  Remember that the simple linear model has two free parameters:
+  <ul>
+    <li><b>m</b> - the slope of the line
+      <p>
+        In our case, the slope m is just a number that indicates the change
+        in the response variable (y), given a change in the explanatory
+        variable (x). Mathematically, the slope can be written as:
+        <pre class='language-none'>&#916;y/&#916;x</pre>
+        or you may have seen it written as:
+        <pre class='language-none'>(y1-y0)/(x1-x0)</pre>
+        for pairs (x0,y0), (x1,y1). Or, from calculus:
+        <pre class='language-none'><em>d</em>y/<em>d</em>x</pre>
+        These all mean the same thing in this case. But as we aren't
+        mathematicians, we don't need to worry too much about notation.
+        For our simple case, m is just a number that we'll need to fit to
+        our data, although in the more general case the slope can be a
+        vector, matrix or tensor.
+      </p>
+    </li>
+    <li><b>b</b> - the y-intercept
+      <p>
+        The y-intercept b is the value of y when x=0. This is often called
+        the "bias" in the machine-learning or AI world. Again, in our
+        example, b is just a number that will be fit to a specific training
+        data set. In higher-dimensional problems, b could be a vector,
+        matrix or tensor, but we'll get to that later.
+      </p>
+    </li>
+  </ul>
+</p>
+
+<p>
+  An important thing to remember is that the simple linear model does
+  <em>not</em> describe a line! The linear model describes an
+  <em>infinite</em> number of lines; one for each possible value of m
+  and b! For example, the lines
+</p>
+
+<pre class='language-none'>y = 2.5 * x + -12.3</pre>
+
+<p>
+  and
+</p>
+
+<pre class='language-none'>y = -5.8 * x + 58.0</pre>
+
+<p>
+  are different lines, but they are the <em>same</em> linear model, just with
+  different <em>values</em> for the free parameters, m and b.
+</p>
+
+<h2>But, how does this relate to "neurons"</h2>
+
+<p>
+  The basic "neuron" in an artificial neural network can be thought of as
+  a simple 'computational unit' that accepts inputs and produces an output.
+  Mathematically, a 'neuron' is just a function, then. A neuron is typically
+  drawn like the figure below.
+</p>
+
+<img src="media/basic_neuron.png" alt="a neuron accepts inputs and produces an output" width="500">
+
+<p>
+  The inputs to this hypothetical pink neuron are labelled x1, x2,... xn,
+  and the output is labelled y (hmm... sounds familiar?). In the figure,
+  the vertical "..." just means that there can be 'any number' of inputs
+  (ie, "n" can be any positive integer). Each input xi is 'attached' to
+  the neuron by an incoming arrow (called an "edge" in network theory),
+  and the output y is connected to the neuron by an outgoing arrow.
+</p>
+
+<p>
+  The purpose of the neuron is to apply some function
+  to the collection of inputs, x1,x2,... xn, in order to produce the output y.
+</p>
+
+<p>
+  Theoretically, our neuron could apply <em>any</em> function to the inputs.
+  While there are some 'fancy' neurons that apply fairly complex functions,
+  in <em>most</em> cases y is a 'weighted sum' of the inputs x1,... xn.
+  This is typically drawn like the image below.
+</p>
+
+<img src="media/basic_neuron_weights.png" alt="a neuron accepts inputs and sums them to produce an output" width="500">
+
+<p>
+  Here, we've labelled each incoming edge with a "weight" w1, w2,... wn. And
+  'inside' the neuron, we multiply each input xi by its incoming weight wi,
+  and then sum the results to produce the output y.
+</p>
+
+<p>
+  As an example, let's consider the following neuron with two inputs:
+</p>
+
+<img src="media/basic_neuron_weights_example.png" alt="a neuron accepting 2 inputs and summing them to produce an output" width="500">
+
+<p>
+  If we plug in some values for the weights and inputs:
+</p>
+
+<pre class='language-none'>
+w1 = 2.5
+w2 = -1.0
+x1 = 1.0
+x2 = 0.5
+</pre>
+
+<p>
+  Then we can calculate the neuron's output y as:
+</p>
+
+<pre class='language-none'>
+y = 1.0 * 2.5 + 0.5 * -1.0 = 2.5 - 0.5 = 2.0
+</pre>
+
+<p>
+  This little pink neuron is <em>very</em> close to the "perceptron", the
+  first artificial neuron model that still forms the basis for nearly all
+  of the neurons used today! There is still one small bit that we need to
+  add, the "bias":
+</p>
+
+<img src="media/basic_neuron_bias.png" alt="a neuron with multiple inputs and a bias term" width="500">
+
+<p>
+  Now our little neuron has a new free parameter, b, which it adds to the
+  weighted-sum of the inputs x1,... xn. If you're still not convinced this
+  is a linear model, let's simplify it a bit further to accept only a single
+  input, x, and we'll change the name of the weight from "w" to "m":
+</p>
+
+<img src="media/basic_neuron_linear.png" alt="a neuron with a single input and a bias term" width="500">
+
+<p>
+  That looks exactly like a simple linear model to me! And adding more inputs
+  doesn't make the model non-linear; it just makes x and m vectors instead
+  of scalars!
+</p>
+
+<p>
+  Those of you who have heard about "activation functions" might be thinking
+  that I've over-simplified our neuron by leaving out the activation function.
+  Don't worry, we'll get to activation functions in a little bit, so
+  if you don't know what they are, you will soon enough! While many of the
+  earlier explanations of artificial neurons include the activation function
+  as part of the neuron, most folks nowadays think of the activation function
+  as an <em>additional</em> component or transformation that is applied to
+  the neuron's output y <em>afterwards</em>. Incidentally (or perhaps not),
+  this is how activation functions are actually implemented - as an additional
+  component separate from and applied after the neuron's output.
+</p>
+
+<p>
+  But activation functions aside for now; I hope I've convinced you that
+  the "neuron" in a "neural network" is really just a simple linear model,
+  although it can be linear in more than 2 dimensions!
+</p>
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-cube fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-cubes fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>How are neurons connected into a "neural network"</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Neurons connected to the <em>same</em> inputs form "layers", and the output
+  of one layer can be connected to the input of another layer.
+</h5>
+
+<p>
+  As we've seen above, a single neuron has <em>extremely</em> limited
+  computational capacity; it is basically a simple linear model and nothing
+  more. Even if we add an arbitrarily large number of inputs to the neuron,
+  x1,... xn, the neuron is still just a linear model; it is just linear in
+  a higher dimension! Maybe adding additional bias terms to our neuron
+  could make it non-linear? Nope.
+</p>
+
+<pre class='language-none'>
+y = m * x + b1 + b2 + b3 + ... + bn
+</pre>
+
+<p>
+  is still just a line, as you can see by substituting
+</p>
+
+<pre class='language-none'>
+c = b1 + b2 + b3 + ... + bn
+</pre>
+
+<p>
+  And you thought you'd never use math in 'real life' :)
+</p>
+
+<p>
+  What makes the concept of the artificial neuron powerful is that you can
+  connect many neurons together into a "network" to generate more interesting
+  computations. How interesting? Recall from our
+  <a href="./what_is_ai.html" target="_blank">previous discussion</a>
+  that a neural network
+  should be able to approximate just about any computation you can do with
+  real-valued numbers (and yes, that includes vectors, matrices and tensors
+  of numbers).
+</p>
+
+<p>
+  The basic component of a neural network's "architecture" is the concept of
+  a "layer". A "layer" in a neural network consists of all the neurons
+  that are directly connected to the <em>same</em> inputs.
+</p>
+
+<p>
+  As an example, let's re-consider our basic single-neuron model with two
+  inputs:
+</p>
+
+<img src="media/neural_network_1.png" alt="a single neuron with two inputs" width="500">
+
+<p>
+  Recall that this 'neural network' is just a line in three dimensions; the
+  neuron has two inputs, x1,x2, and produces output y1 by calculating:
+</p>
+
+<pre class='language-none'>
+y1 = w1*x1 + w2*x2 + b1
+</pre>
+
+<p>
+  We can connect a new neuron, n2 to the <em>same</em> inputs, x1,x2, to
+  create a network of two <em>different</em> linear models:
+</p>
+
+<img src="media/neural_network_2.png" alt="a 2-neuron layer with two inputs" width="500">
+
+<p>
+  The two neurons, n1 and n2 have <em>independent</em> weights and bias terms,
+  so the outputs y1,y2 are <em>independent</em> linear interpretations of
+  the inputs, x1,x2. In this case, we have the computations:
+</p>
+
+<pre class='language-none'>
+y1 = w1*x1 + w2*x2 + b1
+y2 = w3*x1 + w4*x2 + b2
+</pre>
+
+<p>
+  The neurons n1,n2 are connected to the <em>same</em> inputs, x1,x2, so they
+  form a "layer". The "width" of this layer is 2, because there
+  are 2 neurons in the layer. If we connect more neurons to the <em>same</em>
+  inputs, we increase the width of the layer. For example:
+</p>
+
+<img src="media/neural_network_3.png" alt="a 4-neuron layer with two inputs" width="500">
+
+<p>
+  This neural network has a single layer (highlighted in light orange) with
+  four neurons (pink circles) connected to the two inputs x1,x2. This little
+  network produces four outputs (unlabelled), one for each of the neurons in
+  the output layer. And no, it doesn't matter if you draw the network
+  horizontally or vertically. The exact same network could be drawn like this:
+</p>
+
+<img src="media/neural_network_4.png" alt="a 4-neuron layer with two inputs, drawn vertically" width="500">
+
+<p>
+  Adding neurons to a layer increases the width of the layer. The "depth" of
+  the network is increased by adding new layers, with the inputs of neurons
+  in the new layer connected to the outputs of the preceding layer.
+</p>
+
+<p>
+  For example, let's take a simple 1-layer network with 2 inputs, x1,x2, and
+  3 neurons in the first layer (ie, the layer's width is 3).
+</p>
+
+<img src="media/neural_network_5.png" alt="a 3-neuron layer with two inputs" width="500">
+
+<p>
+  Now let's add a new layer with 2 neurons (layer width = 2). In the
+  'perceptron' model, each of the neurons in the new layer is connected via
+  inputs to <em>every</em> output of the previous layer. This is often
+  referred to as a "densely connected" layer or a "dense" layer.
+</p>
+
+<img src="media/neural_network_6.png" alt="a 3-neuron layer with two inputs connected to a 2-neuron output layer" width="500">
+
+<p>
+  This new network now has two layers, so the network's "depth" is 2. The
+  first layer's width is 3 (because it has 3 neurons), and the second layer's
+  width is 2 (because it has 2 neurons). The network has 2 inputs, x1,x2, and
+  two unlabelled outputs.
+</p>
+
+<p>
+  In nearly all cases, the number of outputs from a neural network is equal
+  to the number of neurons in the final (output) layer of the network, so
+  if we want a single output, we need to add a new layer to our network,
+  consisting of a single output neuron:
+</p>
+
+<img src="media/neural_network_7.png" alt="a 3-layer neural network with 2 inputs and 1 output" width="500">
+
+<p>
+  In this particular network, the width of each layer decreases as we move
+  from inputs toward output. This is fairly common but is certainly not
+  universal; layer width can increase or decrease freely throughout the
+  network.
+</p>
+
+<p>
+  Another thing you might notice about this network is that all the arrows
+  point in the same direction - from inputs toward outputs. This type of
+  network is called a "feed forward" network, from the idea that 'information'
+  flows 'forward' through the network, starting from the inputs and moving
+  through each layer in the network, until it reaches the output.
+</p>
+
+<p>
+  In all but a few very specialized cases, neural networks are "feed forward"
+  networks. To make an inference, you supply the network with input data
+  (in this case, values for x1 and x2), and the network proceeds to calculate
+  'layer-by-layer' from inputs to outputs, the 'inference' being the final
+  output of the entire network.
+</p>
+
+<p>
+  During network 'training', the "forward pass" is used to make an inference
+  from training data. The output from the forward pass is then compared to
+  the 'true' output from the training data, using the loss function. The
+  loss is then "back propagated" through the network in the reverse
+  direction (from output toward inputs), using the chain rule to calculate
+  gradients and update the network's parameter values (weights and biases).
+  Hence, the training algorithm is called "back propagation".
+</p>
+
+<h2>
+  So, connecting a bunch of linear units together makes a neural
+  network non-linear?
+</h2>
+
+<p>
+  Well... not quite.
+</p>
+
+<p>
+  While much of the power of neural networks comes from their
+  "modular architecture" - the fact that you can connect many neurons
+  together to increase their computational expressiveness - connecting a bunch
+  of linear units together doesn't make them non-linear.
+</p>
+
+<p>
+  To illustrate this fact, let's consider the following simple neural
+  network (I also promise that this is the most math we'll see in this
+  course, and it's just algebra).
+</p>
+
+<img src="media/linear_network.png" alt="a simple neural network that's just linear" width="500">
+
+<p>
+  This little network has 2 inputs, x1,x2, and a single output y3. There are
+  3 total neurons in the network, 2 in the first layer (n1,n2) and one output
+  neuron (n3). All the weights and bias parameters are shown, and we've
+  labelled the intermediate outputs of neurons n1 and n2 as y1 and y2,
+  respectively. Let's see how this network calculates it's output (y3).
+</p>
+
+<p>
+  The first layer in the network (n1,n2) accepts inputs x1,x2 and calculates
+  intermediate outputs y1,y2 as follows:
+</p>
+
+<pre class='language-none'>
+y1 = w1*x1 + w2*x2 + b1
+y2 = w3*x1 + w4*x2 + b2
+</pre>
+
+<p>
+  Next, the second layer in the network (n3) accepts intermediate outputs
+  y1,y2 and calculates y3:
+</p>
+
+<pre class='language-none'>
+y3 = w5*y1 + w6*y2 + b3
+</pre>
+
+<p>
+  Now, we need to substitute for y1,y2 in the equation immediately above:
+</p>
+
+<pre class='language-none'>
+y3 = w5(w1*x1 + w2*x2 + b1) + w6(w3*x1 + w4*x2 + b2) + b3
+</pre>
+
+<p>
+  Distribute...
+</p>
+
+<pre class='language-none'>
+y3 = w5w1*x1 + w5w2*x2 + w5b1 + w6w3*x1 + w6w4*x2 + w6b2 + b3
+</pre>
+
+<p>
+  And combine terms...
+</p>
+
+<pre class='language-none'>
+y3 = w5w1w6w3*x1 + w5w2w6w4*x2 + w5b1 + w6b2 + b3
+</pre>
+
+<p>
+  All those weights and bias terms are just constants, so we can let:
+</p>
+
+<pre class='language-none'>
+m1 = w5w1w6w3
+m2 = w5w2w6w4
+c  = w5b1 + w6b2 + b3
+</pre>
+
+<p>
+  And substitute...
+</p>
+
+<pre class='language-none'>
+y3 = m1*x1 + m2*x2 + c
+</pre>
+
+<p>
+  which is just a line in 3 dimensions, and is <em>equivalent</em> to the
+  much simpler network shown below!
+</p>
+
+<img src="media/linear_network_simplified.png" alt="a simplified linear neural network" width="500">
+
+<p>
+  So, we just did a bunch of work to create a neural network with 9 parameters,
+  3 neurons and 2 layers, but it "collapses" into a simple, linear,
+  1-neuron model!
+</p>
+
+<p>
+  We need to add one more component to our neural network to make it capable
+  of modeling non-linearity, and that is the "activation function". It is
+  important to remember that, <em>without <u>non-linear</u> activations,
+  any neural network, no matter how complex, will <u>always</u> collapse
+  to a simple linear model</em>.
+</p>
+
+<p>
+  The "activation function" is any function that is applied to the outputs of
+  a neural network layer. Sometimes the activation function is included in
+  the definition of the neuron, but nowadays it is more common for people
+  to define the activation function as a <em>separate</em> layer of the
+  network, and as we'll see later on, this is typically how the activation
+  function is actually <em>implemented</em>.
+</p>
+
+<p>
+  In nearly all cases, the activation function does <em>not</em> have any free
+  parameters, so it doesn't increase the complexity of the network. What
+  the activation function <em>does</em> do is apply a non-linear transformation
+  to the outputs of the previous neural network layer, ensuring that the
+  network doesn't collapse into a simple linear model.
+</p>
+
+<p>
+  The figure below shows our 3-neuron, 2-layer network with a non-linear
+  activation function f(y) applied to the intermediate outputs from the
+  first layer in the network.
+</p>
+
+<img src="media/nonlinear_network.png" alt="a small neural network with nonlinear activation" width="500">
+
+<p>
+  Notice that the activation fuction is applied <em>independently</em> to
+  each of the layer's outputs y1,y2, so it doesn't change the number of
+  outputs from the layer.
+</p>
+
+<p>
+  You are pretty much free to choose any activation function you'd like, so
+  long as it is differentiable (or back propagation won't work), and it
+  is non-linear (or your model will collapse into a simple linear model).
+</p>
+
+<p>
+  Some of the more commonly-used activation functions are the sigmoid
+  activation:
+</p>
+
+<pre class='language-none'>
+y = 1 / (1 + exp(-x))
+</pre>
+
+<p>
+  which produces an output between zero and one, and the hyperbolic-tangent
+  (called "tanh") activation, which produces an output between -1 and +1.
+  (The tanh function is a bit complicated, so we won't show it here.)
+</p>
+
+<p>
+  The following figure shows
+  the output of sigmoid vs tanh activations on the Y-axis, for various
+  input values on the X-axis.
+</p>
+
+<img src="media/activation_functions.png" alt="sigmoid activation vs hyperbolic tangent" width="500">
+
+<p>
+  You can see that these functions are definitely <em>not</em> linear, so
+  they will prevent our neural network from collapsing into a simple linear
+  model.
+</p>
+
+<p>
+  But the activation function doesn't need to be S-shaped to work; even the
+  very simple "rectified linear unit" or "ReLU" activation will make our
+  neural network non-linear:
+</p>
+
+<pre class='language-none'>
+ReLU(x) = max(0,x)
+</pre>
+
+<p>
+  ReLU activation is <em>very</em> simple. If x>0, ReLU(x)=x; otherwise,
+  ReLU(x)=0 for all negative values of x. Those of you with a calculus
+  background might notice that ReLU(x) is not <em>technically</em>
+  differentiable; it has a singularity at x=0, but this is easily
+  rectified (ha ha!) in practice by defining the derivative of
+  ReLU(x) at x=0 to be zero (or 1, depending on the implementation).
+</p>
+
+<p>
+  The ReLU activation is <em>extremely</em> fast for a computer to calculate,
+  and it performs well in practice, so it is one of the most commonly-used
+  activation functions in neural networks today, particularly so for
+  convolution networks, which are commonly used for image analysis.
+</p>
+
+<p>
+  Well, that's about it for neural networks: lots of neurons + non-linear
+  activation functions = self-driving cars!
+</p>
+
+<p>
+  Okay, maybe not. But, given more than a few neurons and a simple non-linear
+  activation function, you <em>can</em> construct a network capable of
+  approximating nearly <em>any</em> mathematical function, given enough
+  training data! And that's really <em>all</em> of the basic math underlying
+  how AI works!
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

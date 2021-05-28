@@ -116,8 +116,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <h1>How do I access the jupyter noteboooks for this course?</h1>
 
 <h5 class="w3-padding-32 w3-text-grey">
-  You will need to log into google colab and access the course jupyter
-  notebooks through github. Here we'll show you how.
+  You will need to log into google colab to access and run the course jupyter
+  notebooks. Here we'll show you how.
 </h5>
 
 <p>
@@ -125,21 +125,34 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </p>
 
 <p>
-  In this web page, we'll describe in text how to log into google colab,
-  access this course's first jupyter notebook through github and run the
-  jupyter notebook using colab. We also provide a tutorial video at the
-  end, which demonstrates the process. I would recommend reading through
-  the text description and watching the video first, and then work through
+  In this web page, we'll describe how to log into google colab,
+  access this course's first jupyter notebook and run the
+  jupyter notebook in colab. I would recommend reading through
+  this page in its entirety first, and then work through
   the process on your own, so you can run your first jupyter notebook
-  through colab.
+  in colab.
 </p>
 
-<h3>My first jupyter notebook in colab</h3>
+<h2>My first jupyter notebook in colab</h2>
 
 <p>
-  To access this course's first jupyter notebook, you'll need to log into
-  google colab. Open a web browser and navigate to
-  <a href="https://colab.research.google.com", target="_blank">https://colab.research.google.com</a>.
+  To access this course's first jupyter notebook, just click on
+  <a href="https://colab.research.google.com/github/bryankolaczkowski/ALS3200C/blob/main/helloworld.ipynb"
+   target="_blank">this link</a>.
+</p>
+
+<p>
+  A new browser tab should open in your web browser, and it should look
+  pretty similar to the figure below.
+</p>
+
+<img src="media/colab_firstnotebook.png" alt="Google colaboratory with first course notebook" width="600">
+
+<p>
+  The first jupyter notebook for this course has the title "welcome to
+  jupyter notebooks!". Your background color will likely be different; I
+  user a "dark reader" plugin on my browser, which changes the background
+  to dark gray, because I dislike bright backgrounds.
 </p>
 
 <p>
@@ -157,21 +170,21 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <p>
   Look in the upper right-hand
-  corner of the google colab landing page. If you are already logged into
+  corner of the google colab page. If you are already logged into
   a google account, you should see your account icon in the upper-right
-  corner. If this is the case, you are ready to access the course jupyter
+  corner. If this is the case, you are ready to run the course jupyter
   notebooks.
 </p>
 
-<img src="media/colab_loggedin.png" alt="Google colaboratory landing page showing account icon" width="600">
+<img src="media/colab_loggedin.png" alt="Google colaboratory page showing account icon" width="600">
 
 <p>
   If you see a button labelled "Sign in" in the upper-right corner of the
-  google colab landing page, you will need to log into a valid google account
+  google colab page, you will need to log into a valid google account
   in order to access colab and run the course jupyter notebooks.
 </p>
 
-<img src="media/colab_signin.png" alt="Google colaboratory landing page showing sign in button" width="600">
+<img src="media/colab_signin.png" alt="Google colaboratory page showing sign in button" width="600">
 
 <p>
   To log into colab, click on the "Sign in" button; you'll be taken to the
@@ -215,87 +228,21 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <p>
   Once you log in, you should see your account icon in the upper-right corner
-  of the google colab landing page, and you should also see a 'popup' allowing
-  you to access jupyter notebooks through various means.
+  of the google colab page, which means you are ready to run
+  the jupyter notebook.
 </p>
 
-<img src="media/colab_login_page.png" alt="Google colaboratory landing page after login, showing account icon in upper-left corner and popup window for accessing jupyter notebooks" width="600">
+<img src="media/colab_loggedin_firstnotebook.png" alt="Google colaboratory page after login, showing account icon in upper-left corner and first course jupyter notebook" width="600">
 
 <p>
-  Now that you're logged into google colab, you need to access the course
-  jupyter notebooks.
-</p>
-
-<p>
-  All the course jupyter notebooks are available through a github repository.
-  <a href="https://github.com/", target="_blank">Github</a> is a free
-  file-sharing and versioning platform built using the "git" distributed
-  version-control system. Github is one of the most popular software-sharing
-  platforms; it can also be used as a web server (this page is hosted on
-  github!).
-</p>
-
-<p>
-  To access this course's first jupyter notebook, click on the "GitHub" tab
-  on the popup.
-</p>
-
-<p>
-  You should see a form with a text input and the prompt:
-  "Enter a GitHub URL or search by organization or user".
-</p>
-
-<img src="media/colab_githubtab.png" alt="Google colaboratory landing page after login, showing github tab" width="600">
-
-<p>
-  All of this course's jupyter notebooks are stored in my "ALS3200C" repository.
-  Enter the following text in the GitHub search, and hit Enter:
-</p>
-
-<pre>
-  https://github.com/bryankolaczkowski/ALS3200C
-</pre>
-
-<p>
-  Include the entire URL, including the "https://" part. After hitting Enter,
-  the page may cycle for a bit, and then you should see a list of available
-  jupyter notebooks. Each notebook in the list will have a GitHub icon attached
-  to it, which looks like a little cartoon kitty silhouette, and each jupyter
-  notebook will end with the file-name extension, ".ipynb".
-</p>
-
-<p>
-  Find the first course notebook, which is called
-</p>
-
-<pre>
-  helloworld.ipynb
-</pre>
-
-<p>
-  and will not necessarily be the first notebook on the list! Click on the
-  "helloworld.ipynb" name to open this notebook in colab. The popup should
-  disappear, and you should see a page with "welcome to jupyter notebooks!"
-  displayed at the top.
-</p>
-
-<img src="media/colab_selectnotebook.png" alt="Google colaboratory page showing github notebook menu" width="600">
-
-<p>
-  For convenience, I made a short video demonstrating how to log into google
-  colab and access the helloworld.ipynb jupyter notebook.
-</p>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Ljq9tXpH3H8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<p>
-  The helloworld.ipynb notebook is a <em>very</em> simple example, which is
+  The first jupyter notebook for this course is a <em>very</em> simple
+  example, which is
   just here to introduce you to jupyter notebooks, google colab, and to
   help you troubleshoot any login problems.
 </p>
 
 <p>
-  Please make sure you can log into google colab, access the helloworld.ipynb
+  Please make sure you can log into google colab, access the first course
   jupyter notebook, and read through the notebook and execute the interactive
   python code.
 </p>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>overfit</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">OVERFITTING</h1>
+  <p class="w3-xlarge">just say 'no'</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>What is "overfitting"?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Modeling the <em>noise</em> in the data, rather than the <em>pattern</em>.
+</h5>
+
+<p>
+  Conceptually, we can think of statistical inference as approximating a
+  "target function" mapping explanatory variables "x" to a response variable
+  "y":
+</p>
+
+<pre class="language-none">
+y = f(x)
+</pre>
+
+<p>
+  In a linear model, we <em>constrain</em> the function approximation to have
+  a specific 'form', in this case a 'linear form':
+</p>
+
+<pre class="language-none">
+y = mx + b
+</pre>
+
+<p>
+  But with neural network AI, we know from the universal approximation
+  theorem that - given an appropriate network - we can reliably approximate
+  <em>any</em> arbitrary function "f".
+</p>
+
+<p>
+  Functions are how we use numbers to 'model' the world in which we live. To
+  make quantitative inference possible, we <em>assume</em> that there is
+  <em>some</em> unknown function that relates explanatory and response variables
+  <em>in the world</em>. Whether this assumption is <em>true</em> or not,
+  metaphysically, is beyond the scope of this course. For practical purposes,
+  it really doesn't matter one bit whether functions have 'being' in the
+  world, because assuming they do allows us to make <em>much</em> more
+  detailed and reliable inferences about observable phenomena that we would
+  be able to make, otherwise.
+</p>
+
+<p>
+  Once we make the assumption that there is <em>some</em> function relating
+  explanatory to response variables, we can write a general model of
+  <em>any</em> finite data set as:
+</p>
+
+<pre class="language-none">
+y = f(x) + ε
+</pre>
+
+<p>
+  where "f(x)" is the 'functional pattern' relating or "mapping" explanatory
+  variables "x" to the response variables "y", and "ε" refers to the
+  "sampling error" associated with using a finite data set to represent what
+  is, conceptually at least, a theoretically <em>infinite</em> population of
+  data. In practice, the 'error' (ε) can include things like measurement
+  error, variation in sample preparation or storage, false or misleading
+  information, data entry mistakes, quantum fluctuations due to the inherently
+  stochastic nature of the universe, etc.
+</p>
+
+<p>
+  Conceptually, our model starts <u>overfitting</u> when <em>part of the
+  'error' becomes part of the 'model'</em>. We could 'write down'
+  overfitting as something like this:
+</p>
+
+<pre class="language-none">
+        _"overfit model"
+       |         _"overfit error"
+    ___|___   __|
+y = f(x+ε1) + ε2
+    --- --------
+     |         |_"true error"
+     |_"true model"
+</pre>
+
+<p>
+  In this example, we are <em>trying</em> to model the <em>true</em> underlying
+  function "f(x)", with <em>true</em> sampling error "ε1 + ε2". But our
+  model has "overfit" the training data; it is <em>actually</em> modeling the
+  <em>incorrect</em> underlying function "f(x+ε1)", with <em>incorrect</em>
+  sampling error "ε2".
+</p>
+
+<p>
+  The <em>important</em> thing to remember is that, when your model starts
+  fitting the <em>error</em> rather than the functional "pattern" in your
+  data sample, the model is "overfitting" the data.
+</p>
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-snowflake-o fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-coffee fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>How can I tell when my model is overfitting?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  It doesn't "generalize".
+</h5>
+
+<p>
+  In practice, contemporary AI is a "inductive learning" paradigm - the
+  neural network must 'learn' a "general pattern" (ie, the "target
+  function" relating explanatory to response variables) by 'studying'
+  specific data samples drawn from that pattern. By 'fitting' the model
+  to the data samples, the network 'infers' the target function by adjusting
+  its weights and bias parameter values to approximate the 'true' underlying
+  target function. In other words, the neural network examines <em>specific
+  examples</em> and uses them to infer a <em>general pattern</em>.
+</p>
+
+<p>
+  A reasonably-sized neural network can 'adjust its weights and bias parameters'
+  to approximate nearly <em>any</em> target function, so how can we
+  <em>know</em> that our network has inferred the <em>correct</em> target
+  function from our data?
+</p>
+
+<p>
+  When we <em>simulate</em> data, we <em>know</em> the <em>true</em> target
+  function with absolute certainty, so we can just compare the function
+  inferred by the neural network to the <em>true</em> target function. We
+  have been doing this 'by eye' in many of the exercises in this course. But
+  we could also use more 'formal' mechanisms to check how closely our
+  neural network 'matches' the true target function; for example, we could
+  calculate the
+  <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence"
+  target="_blank">Kullback-Leibler divergence</a> between the trained neural
+  network and the 'true' target function, which would tell us roughly how
+  'close' our neural network is to the 'true' function.
+</p>
+
+<p>
+  The power of simulation-based studies is that we <em>know</em> the 'truth'
+  with certainty, so we can fairly easily evaluate how <em>good</em> our
+  model is doing at 'finding the truth'.
+</p>
+
+<p>
+  When analyzing 'real' data, we typically don't know the 'true' target
+  function, or even an approximation of it (if we did, why would we go
+  through the trouble of modeling it?). So, we need to come up with some
+  way to determine if our model is 'overfitting', wihout relying on
+  'knowing the true answer'.
+</p>
+
+<p>
+  We will solve this problem using a concept called "generalizability" (ie,
+  'the ability to generalize'). Imagine we have collected a data sample from
+  the 'true' target function:
+</p>
+
+<pre class="language-none">
+y = f(x) + ε
+</pre>
+
+<p>
+ We then fit a neural network model to these data, which gives us an
+ <em>approximation</em> of the target function:
+</p>
+
+<pre class="language-none">
+&ycirc; = g(x)
+</pre>
+
+<p>
+  So, our neural network is approximating the function "f" using the function
+  "g", where "g" is just a 'name' for the function that is 'encoded' by the
+  neural network after it has been fit to the data "x". The neural network model
+  will generate a 'predicted response' (&ycirc;), given values for explanatory
+  variables (x).
+</p>
+
+<p>
+  How 'good' is our neural-network approximation (g) to the 'true' target
+  function (f)? Because we <em>don't</em> know the 'true' target function, we
+  can't <em>directly</em> compare the neural-network approximation to the
+  'truth'. Also, because the neural network has be <em>trained</em> using
+  the data set "x", we can't <em>evaluate</em> our model using the <em>same</em>
+  training data.
+</p>
+
+<p>
+  But what if we could collect a <em>new</em> data set "x2,y2" from the
+  <em>same</em> target function "f", and then predict the response "y2"
+  from explanatory variables "x2" using the neural-network approximation
+  "g" that has already been fit to the <em>original</em> training data "x"?
+</p>
+
+<pre class="language-none">
+&ycirc;2 = g(x2)
+</pre>
+
+<p>
+  If the neural network has 'accurately' approximated the 'true' target
+  function, then the model's loss on the <em>new</em> data set (x2,y2)
+  will be <em>very close to</em> its loss on the <em>original</em> training
+  data set (x,y). That is,
+</p>
+
+<pre class="language-none">
+loss(y, &ycirc;) &#8776; loss(y2, &ycirc;2)
+</pre>
+
+<p>
+  where "&#8776;" just means 'approximately equal to', and we are using the
+  function "loss(y, &ycirc;)" to indicate the loss function between 'true'
+  response "y" and 'predicted' response "&ycirc;".
+</p>
+
+<p>
+  In any case, if the model's 'performance' on the <em>new</em> data set is
+  'very close to' its performance on the original training data, we say that
+  the model "generalizes" to new data. If the model's performance on the new
+  data set is <em>much worse</em> than its performance on the original training
+  data, we say that the model does <em>not</em> generalize well; it is "overfit"
+  to the training data.
+</p>
+
+<p>
+  In general (ha ha!), we want to use AI to predict response values from
+  <em>new</em> data, so our model <em>must</em> generalize well in order to
+  be of use. In other words, generalizability is a <em>necessary</em>
+  property of a reliable AI system. However, it is not <em>sufficient</em>
+  to ensure our AI is reliable in practice. A neural network can be
+  generalizable but also bad. For example, a network that achieves 40%
+  accuracy on both training data and <em>new</em> 'validation' data generalizes
+  very well... it just makes inaccurate predictions!
+</p>
+
+<p>
+  In the agricultural and life sciences, collecting <em>new</em> data is
+  typically difficult and expensive. So in practice, model generalizability
+  is commonly evaluated by dividing the <em>original</em> data set into
+  two different portions:
+</p>
+
+<ul>
+  <li><u>training data</u> - used to fit the model's parameter values (weights
+    and bias terms).</li>
+  <li><u>validation data</u> - used to <em>evaluate</em> the ability of the
+    model to <em>generalize</em> to new data.</li>
+</ul>
+
+<p>
+  It is important that, when using this technique, we really treat the validation
+  data like it was 'new' data collected 'after' fitting the model; we must
+  <em>never</em> allow the model to 'cheat' by using the validation data to
+  help fit the model. Otherwise, we might <em>think</em> our model is
+  generalizing very well, even if it isn't. This can be trickier than it may
+  first appear, in practice. For example, say we have 'repeated measures'
+  from the <em>same</em> individuals or locations. Then, we need to partition
+  <em>all</em> of the samples from each individual or location in
+  <em>either</em> the training or the validation set; we can't allow
+  <em>different</em> samples from the <em>same</em> individual to be split
+  up, so some are in the training set, and some are in the validation set.
+  And yes, little problems like this routinely undermine the validity of
+  <em>real</em> studies in a wide variety of fields.
+</p>
+
+<p>
+  The major down-side to partitioning existing data into training and validation
+  sub-sets is that now we have <em>less</em>
+  training data with which to fit the parameters of our model. More data
+  typically results in a better fit, so we are sacrificing model fit when
+  we "hold out" some data for model validation. In other words, in order to
+  assess the model's generalizability, we have to 'give up' a little bit
+  of fitting accuracy.
+</p>
+
+<p>
+  How do we determine <em>how much</em> data should go in the training vs
+  validation set? There's no 'easy' answer, but in general there has been
+  a trend of using a <em>smaller</em> proportion of data for model validation,
+  especially as the amount of <em>total</em> data increases. While you might
+  use 30% or 40% of your data for model validation when you have a data set
+  with a few hundred to a few thousand samples, you might only need 10% of
+  your data for validation when you have a million samples. You generally want
+  to use as <em>much</em> data as possible for model fitting, while still
+  having <em>enough</em> validation data to get a reliable estimate of
+  your model's generalizability. Exactly what the appropriate 'split' looks
+  like for a particular problem will be impacted by the type of data you
+  are analyzing, how it was collected, and the complexity of your model.
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

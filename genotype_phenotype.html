@@ -106,7 +106,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   just a function:
 </p>
 
-<pre class='language-none'>
+<pre class="language-none">
 height = f(genome, environment)
 </pre>
 
@@ -181,12 +181,95 @@ and life sciences.
 
 <p>
   <strong>Disease risk prediction</strong> is the prediction of an individual's
-  risk for developing a particular disease, based on the person's genome.
+  risk for developing a particular disease, based on the person's genome. In
+  this case, the 'response variable' is the risk of the person developing the
+  disease. The 'explanatory variables' are the person's genome, which is
+  typically encoded by listing the specific DNA bases at a large number of
+  sites across the genome which are known to vary in the human population.
+  Theoretically, we could use the person's <em>entire</em> genomic sequence
+  as explanatory variables, but reducing the ~3.2 <em>billion</em> bases
+  in the human genome to ~1million or so 'marker' sites saves a <em>lot</em>
+  of computation and data storage without sacrificing accuracy very much.
+</p>
+
+<p>
+  We can build a <em>model</em> for predicting disease risk from genomic
+  sequence markers
+</p>
+
+<pre class="language-none">
+disease_risk = f(genome)
+</pre>
+
+<p>
+  where the function <em>f</em> can be <em>any</em> function we'd like. For
+  example, a simple linear model would be:
+</p>
+
+<pre class="language-none">
+disease_risk = M * genome + b
+</pre>
+
+<p>
+  where <em>M</em> is a vector of slopes (one for each base in the genome),
+  and <em>b</em> is the bias term. This model has one slope parameter for
+  <em>every</em> position in the genome (ie, its 'dimension' is the number
+  of positions in the genome), plus a single bias parameter. And yes, this
+  would be implemented using a <em>single</em> densely-connected neuron!
+</p>
+
+<p>
+  Once trained on a broad sample of people with known disease-risk and known
+  genomic sequence, we could use this model to predict the disease risk of a
+  new individual, based only on their genome sequence. Because an individual's
+  genome is know <em>at birth</em> (or before), predicting disease risk from
+  genome sequence can be used to develop <em>very early</em> treatment
+  strategies that can help mitigate disease risk long before <em>any</em>
+  symptoms or clinical markers might be present.
+</p>
+
+<p>
+  You should note that phenotype prediction is <em>different</em> from
+  a "genome wide association study" (GWAS), the goal of which is to identify
+  <em>which specific</em> genomic variants are <em>most strongly associated</em>
+  with disease risk. GWAS is all about identifying genomic variants. Disease
+  risk prediction, on the other hand, is all about accurately predicting
+  disease risk, and it doesn't really care <em>which</em> specific genomic
+  variants contribute to that risk. Although you can extract both types of
+  information from both types of studies (you can predict disease risk
+  from GWAS, and you can identify risk-associated variants from phenotype
+  prediction), they <em>start</em> from fundamentally different places and
+  have different primary goals.
 </p>
 
 <p>
   <strong>Personalized medicine</strong> is the tailoring of medical treatment
-  to the individual patient.
+  to the individual patient. Different patients can respond very differently
+  to the same medication or treatment, and much of these differential
+  treatment responses can be tied to the patient's genome.
+</p>
+
+<p>
+  For example, one patient might have a particular enzyme that rapidly degrades
+  a specific drug, making that drug less effective. Another patient might
+  have a version of the enzyme that works much slower, allowing the drug to
+  remain in the patient's sysem for a longer time, making it more effective.
+</p>
+
+<p>
+  Predicting the type and dosage of medication most appropriate for a
+  <em>specific</em> patient from their genome sequence is called
+  "pharmacogenomics", and it is one important area in which phenotype
+  prediction is being used to advance 'personalized medicine'.
+</p>
+
+<p>
+  In this case, the 'response variable' is tretment efficacy (how well a
+  specific treatment protocol is expected to work for the patient), and the
+  'explanatory variables' are the patient's genome. Predicting the patient's
+  treatment response from their genome allows doctors to tailor treatments
+  for each specific patient, rather than relying on general guidelines that
+  might not be relevant for every individual.
 </p>
 
 <h2>Agriculture</h2>
@@ -229,10 +312,53 @@ and life sciences.
   interest.
 </p>
 
+<!--
+<p>
+  If you are interested in more details about how phenotype prediction is
+  used in plant and animal breeding, this video is pretty good.
+</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RovnCsda-zQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+-->
+
 <h2>Basic Biology</h2>
 
 <p>
-  XX
+  All life on earth descended from a single common ancestor that
+  arose billions of years ago and diversified over time to produce
+  the dizzying array of biodiversity that we see around us. Ultimately, then,
+  <em>all</em> heritable biodiversity can be traced back to mutations in
+  the genome sequence. Understanding how changes in the genome impact
+  phenotypic diversity is therefore <em>fundamental</em> to understanding
+  how life on earth works.
+</p>
+
+<p>
+  Predicting an organism's phenotype from its genome is an important tool for
+  helping biologists untangle the complex relationship between the genome
+  and the way an organism looks and acts.
+</p>
+
+<p>
+  For example, if a simple linear model is sufficient to accurately predict
+  a phenotypic trait from the organism's genome, that <em>says something</em>
+  about the genomic 'structure' of the trait - it says that the trait is
+  'additive' (each gene contributes 'a little bit' to the phenotypic trait,
+  and those contributions are 'independent' of one another).
+</p>
+
+<p>
+  In contrast, if a simple linear model is insufficient to accurately
+  predict an individual's phenotype from its genome, it tells us that the
+  'genetic basis' for the trait is more complex; it may include 'interactions'
+  among multiple genes or be highly impacted by environmental factors.
+</p>
+
+<p>
+  By comparing <em>different</em> phenotype prediction models and investigating
+  the best-fit values of model parameters, researchers can learn more about
+  how the genome 'works' to produce a variety of phenotypes. This gives us
+  important insights into how life on earth has been shaped by genome evolution.
 </p>
 
 </div>

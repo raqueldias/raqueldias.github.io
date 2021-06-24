@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>genopheno</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">PHENOTYPE PREDICTION</h1>
+  <p class="w3-xlarge">your genome impacts how you look and act... but how?</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>What is phenotype prediction?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Predicting how you look and act, based on your genome and environment.
+</h5>
+
+<p>
+  We all look and act a little differently. We have different heights, hair
+  and eye colors, blood types, etc. We also respond differently to our
+  environment. We might require different amounts of sleep, have different
+  natural energy levels, have allergies to different foods, respond
+  differently to pharmaceuticals, etc.
+</p>
+
+<p>
+  Collectively, how an organism looks and acts can be referred to as the
+  organism's "<a href="https://en.wikipedia.org/wiki/Phenotype"
+  target="_blank">phenotype</a>". The phenotype generally includes everything
+  you can measure about an organism's morphology, physiology and behavior.
+</p>
+
+<p>
+  There are two major factors that impact an organism's phenotype:
+  <ul>
+    <li>its genome</li>
+    <li>its environment</li>
+  </ul>
+  An organism's <em>genome</em> is its DNA inherited from its parents and
+  modified by mutations. Its <em>environment</em> is everything else.
+</p>
+
+<p>
+  Typically, we think of the genomic component as the <em>heritable</em>
+  factors that impact the way an organism looks and acts. The genome is
+  'passed on' (with modification) from parent to offspring. If the genome
+  strongly determines a particular aspect of the phenotype (called a "trait"),
+  that trait is <em>heritable</em>; it can be 'inherited' from the organism's
+  parents.
+</p>
+
+<p>
+  More 'quantitatively', we can talk about the "heritability" of a phenotypic
+  trait - the extent to which the trait is determined by the organism's
+  genome. Or, more broadly, the extent to which the child's phenotype is
+  'similar to' the phenotype of its parents (after controlling for any
+  environmental determination).
+</p>
+
+<p>
+  <strong>Phenotype prediction</strong> is using information about an
+  organism's genome and environment to <em>predict</em> a specific quantitative
+  or qualitative aspect of its phenotype.
+</p>
+
+<p>
+  For example, let's say we'd like to predict a person's height. The
+  <em>response</em> variable is "height", a 'quantitative trait' (ie,
+  a number). The potential <em>explanatory</em> variables might be the
+  person's genome and information about the person's current and past
+  environments, such as the country the person grew up in, the person's
+  income, information about their dietary and exercise habits, and any
+  diseases they may have or may have had in the past.
+</p>
+
+<p>
+  We can then build a <em>model</em> relating the explanatory variables
+  (genome, environment) to the response variable (height). The model is
+  just a function:
+</p>
+
+<pre class='language-none'>
+height = f(genome, environment)
+</pre>
+
+<p>
+Which can be a simple linear model or any arbitrary function that can be
+approximated by a neural network.
+</p>
+
+<p>
+Given enough 'training examples' (people with known height, genome and
+enviornmental variables), we can 'learn' the 'trainable parameters' of
+the model.
+</p>
+
+<p>
+Once trained, we can <em>use</em> the model to predict <em>any</em>
+individual's height from their genome and environment.
+</p>
+
+<p>
+In this example, we used <em>both</em> the genome <em>and</em> the environment
+to predict an individual's phenotype. This would be a case of 'general'
+phenotype prediction.
+</p>
+
+<p>
+In many cases, researchers are interested in predicting the phenotype using
+<em>only</em> the organism's genome; this is sometimes called "genomic
+prediction" (which is maybe weird, because we are <em>not</em> trying to
+predict the genome!).
+Phenotype prediction using <em>only</em> the genome is typically much more
+straight-forward than trying to deal with data about the individual's
+environment, which can be complex and difficult to measure and analyze
+effectively.
+Predicting an organism's phenotypic traits from
+its genome has <em>many</em> important applications throughout the agricultural
+and life sciences.
+</p>
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-user-o fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-key fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>How is phenotype prediction used?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  In medical research, agriculture and basic biology.
+</h5>
+
+<h2>Medical Research</h2>
+
+<p>
+  There are two primary applications of phenotype prediction in the biomedical
+  sciences
+  <ul>
+    <li>disease risk prediction</li>
+    <li>personalized medicine</li>
+  </ul>
+</p>
+
+<p>
+  <strong>Disease risk prediction</strong> is the prediction of an individual's
+  risk for developing a particular disease, based on the person's genome.
+</p>
+
+<p>
+  <strong>Personalized medicine</strong> is the tailoring of medical treatment
+  to the individual patient.
+</p>
+
+<h2>Agriculture</h2>
+
+<p>
+  The most common use of phenotype prediction in the agricultural sciences is
+  the selection of individuals for use in plant and animal breeding programs.
+  Often called "genomic selection",
+  the 'phenotypic trait' we would like to predict here is essentially
+  'utility in a particular breeding program'. Of course, this phenotype will
+  vary greatly, depending on the particular goals of the breeding program!
+  What we'd like to accomplish is, given a particular breeding goal and
+  potential individuals to use in the breeding program, we'd like to select
+  the 'best' individuals to accomplish the goals of the breeding program
+  'most efficiently'.
+</p>
+
+<p>
+  When the trait we'd like to select for in our breeding program has a very
+  simple genetic basis (ie, it is controlled by a very small number of
+  genes), we can easily use traditional breeding methods or transgenic
+  approaches to 'transfer' the genes controlling the trait from one individual
+  to another, thereby 'transferring' the phenotypic trait.
+</p>
+
+<p>
+  But for many complex phenotypic traits controlled by a <em>very</em> large
+  number of genes, it may be difficult or <em>impossible</em> to even
+  determine <em>which particular genes</em> impact the trait of interest,
+  let alone effectively 'transfer' the trait from one individual to another.
+</p>
+
+<p>
+  By building a <em>model</em> that can predict an individual's phenotype from
+  its genome, breeders are able to 'screen' individuals for traits of interest
+  <em>very rapidly</em> using <em>only</em> their genome sequences. This
+  approach can <em>radically</em> speed up plant and animal breeding programs,
+  producing new lines with complex desirable traits without having to
+  painstakingly investigate the specific genetic basis for the traits of
+  interest.
+</p>
+
+<h2>Basic Biology</h2>
+
+<p>
+  XX
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

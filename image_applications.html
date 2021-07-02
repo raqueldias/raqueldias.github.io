@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>imagapps</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">IMAGE CLASSIFICATION</h1>
+  <p class="w3-xlarge">analyzing images... in the life sciences</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>AI is <em>really good</em> at image classification</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  and this has many applications in the agricultural and life sciences.
+</h5>
+
+<p>
+  Images are everywhere, which is not surprising given that almost
+  <em>every</em> person in the developed world is walking around with a
+  digital camera <em>all the time</em>!
+</p>
+
+<p>
+  Before AI, it was <em>very</em> difficult to extract semantic information -
+  what the image <em>means</em> - directly from digital image data without
+  human intervention. Now modern-day AI systems can very rapidly identify
+  the semantic components of an image directly from raw data with
+  super-human accuracy.
+</p>
+
+<p>
+  The extraction of semantic information (<em>what</em> the image is an image
+  <em>of</em>) from image data is commonly referred to as "image
+  classification", and it is one of the most well-studied general problems in
+  artificial intelligence. The pursuit of super-human image classification
+  accuracy produced some of the major advances in neural network AI that
+  define the state-of-the-art today, including the concept of 'deep
+  learning' and many of the technical advances that made 'deep' neural
+  networks possible.
+</p>
+
+<p>
+  In its simplest form, image classification networks are given a raw image
+  file (typically encoded as a 3-channel 'color' image or a 1-channel 'black
+  and white' image), and the network returns a number that specifies the
+  main 'semantic component' of the image (ie, is the image a
+  'dog', 'cat', 'motorcycle', 'tree'?).
+</p>
+
+<p>
+  Conceptually, many image-classification networks are divided into two main
+  components:
+
+  <ul>
+    <li>a 'feature extraction' sub-network, and</li>
+    <li>a 'decision layer' sub-network</li>
+  </ul>
+</p>
+
+<p>
+  The 'feature extraction' sub-network typically comprises the majority of
+  the neural network. It is responsible for 'extracting' semantic 'features'
+  from the image data. These 'features' represent various abstract semantic
+  components of the image that are learned by the neural network during
+  training. Although they can be very difficult for humans to understand,
+  the neural network uses these 'semantic features' to classify images.
+</p>
+
+<p>
+  The 'decision layers' are responsible for examining the 'semantic features'
+  extracted from the image by the 'feature extraction' sub-network and
+  'deciding' which 'class' the image belongs to. In many image-classification
+  networks, only the last 2-4 layers of the network comprise the
+  'decision layers'.
+</p>
+
+<p>
+  The "modular" architecture of many image-classification networks allows the
+  'feature extraction' sub-network from a network trained to perform one
+  classification task to be 'grafted' onto a <em>new</em> decision layer
+  sub-network. Using this approach, neural-network 'engineers' can train
+  <em>very deep</em> feature-extraction networks using <em>huge</em> image
+  training data sets with tens-of-millions of labelled images and
+  tens-of-thousands of possible classes. Once trained on these 'general'
+  problems, we can "transfer" the feature-extraction part of the network to
+  a <em>new</em> decision-layer, allowing us to train the much-smaller
+  decision-layer portion using <em>much less</em> data.
+</p>
+
+<p>
+  The ability of AI systems to quickly and accurately identify the components
+  of an image, coupled with "transfer learning" approaches that can apply
+  <em>existing</em> feature-extraction subnetworks to <em>new</em> image
+  classification problems without requiring large training data sets,
+  has led to <em>many</em> important applications, including important
+  applications of image classification in the agricultural and life sciences.
+</p>
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-film fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-picture-o fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>How is image classification used?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  In medical research, agriculture and basic biology.
+</h5>
+
+<h2>Medical Research</h2>
+
+<p>
+  Images of a patient's organs, tissues or cells can provide some of the most
+  clinically-important data that doctors use to diagnose problems and
+  propose therapies. Diagnoses of broken bones, internal-organ problems and
+  cancer all rely heavily on medical image data.
+</p>
+
+<p>
+  Typically, a physician "specialist" with expert training will 'look at'
+  medical image data and, using their expert eye in conjunction with other
+  test results and clinical information, develop a diagnosis and treatment
+  plan. This process is obviously 'labor intensive' and heavily reliant on
+  the training, expertise and performance of the specific person doing the
+  diagnosis. Medical diagnosis from image data involves extracting high-level
+  'semantic information' from a medical image and 'classifying' it as to
+  whether it represents a 'healthy' patient or one suffering from some disease
+  or ailment.
+</p>
+
+<p>
+  Extracting semantic information and classifying images is exactly what many
+  neural networks excel at! If trained properly, image-classification networks
+  <em>should</em> be able to provide statistically-valid information about
+  the potential healthy/unhealthy status of a patient, based on relevant
+  medical image data. This information can then be used by physicians to
+  help guide diagnosis and treatment planning.
+</p>
+
+<p>
+  AI-based 'disease diagnosis' prediction is only one of the important ways
+  that image-classification neural networks are being used in medical research.
+  Image-classification networks are also being used in hospitals to help
+  identify patients in distress, and they can also be used to 'enhance'
+  medical images by highlighting or sharpening various features, making it
+  easier for physicians to make accurate diagnoses.
+</p>
+
+<p>
+  Many strong ethical concerns surround the use of AI in clinical medicine,
+  including:
+
+  <ul>
+    <li>patient privacy</li>
+    <li>data security</li>
+    <li>systematization of diagnosis- and treatment-disparities through
+        'biased AI'</li>
+    <li>liability and patients-rights ambiguities, when problems arise
+        in AI diagnosis or treatment</li>
+  </ul>
+
+  Ethicists and human-computer interactions (HCI) researchers are grappling
+  with understanding how AI-enabled medicine may impact our ethical and
+  social structures, as we begin interacting with computers in a fundamentally
+  different way. Legal researchers are also working to understand how
+  existing legislation can function in an AI-integrated society, and to
+  craft new legislation to help insure a safe and functioning integration of
+  AI systems into our collective cultural and legal systems.
+</p>
+
+<p>
+  AI is only <em>beginning</em> to become built-in to how we interact with
+  the world, so in many cases there seem to be few strong answers and
+  very little data from which to draw them.
+</p>
+
+<h2>Agricultural and Natural Resources</h2>
+
+<p>
+  Two of the primary ways image-classifiation AI is being used in the
+  agricultural and natural resources fields are:
+
+  <ul>
+    <li>pest and disease identification, and</li>
+    <li>landscape classification</li>
+  </ul>
+</p>
+
+<p>
+  A neural network might be able to distinguish a 'shirt' from a 'winnebago',
+  but what about distinguishing a plant-eating beetle from its 'helpful'
+  counterpart? In agriculture, <strong>pest and disease identification</strong>
+  is an important 'first step' in sophisticated Integrated Pest Management
+  (IPM) strategies. Typically, the quicker and more accurately you can identify
+  the specific pest or disease affecting a crop, the faster, cheaper and more
+  effectively you can control the problem.
+</p>
+
+<p>
+  As with medical images, pest and disease identification is typically done
+  'manually' by an expert in the field, who will combine images and specimens
+  of the pest/disease with laboratory analyses and their 'experience' to
+  determine the most likely cause and most effective solution. This involves -
+  among other things - the extraction of relevant semantic information from
+  how the pest/disease "looks" (ie, an 'image' of it) and 'classifying' the
+  particular image as either a specific type of "pest" or an innocuous
+  species.
+</p>
+
+
+<p>
+  <strong>Landscape classification</strong> is another important application of
+  image-classification networks. To understand how our planet is rapidly
+  changing, we need to understand how the various 'landscape components'
+  (oceans, rivers, deserts, mountains, croplands, forests, etc) vary from
+  year-to-year and over long time spans. Satelite and drone images provide
+  <em>huge</em> amounts of information about our global landscape, but
+  <em>using</em> that information to guide landscape and natural-resource
+  management strategies requires 'extracting semantic information' from the
+  images (ie, 'classifying' them into different 'landscape classes').
+</p>
+
+<p>
+  Detailed classification of global landscape images at a fine scale would
+  be <em>impossible</em> to accomplish accurately 'by hand', but a well-trained
+  AI network could probably do it in less than a week (perhaps much less)
+  given enough hardware and energy resources.
+</p>
+
+<p>
+  Understanding our rapidly-changing planet at a global scale in order to
+  implement reliable strategies to effectively manage changing global
+  resources is a <em>major</em> challenge facing our species. The extraction
+  of globally-semantic information from satelite and other imaging data
+  is an important component of efforts to understand and manage our changing
+  world. Image-classification AI is by far <em>the most effective approach</em>
+  available today capable of providing detailed, accurate and reliable
+  information about landscape changes at a global scale.
+</p>
+
+
+<h2>Basic Biology</h2>
+
+<p>
+  Hand-drawn images of animal and plant specimens have been some of the most
+  important biological data since the science existed. Today, scientists can
+  'image' microscopic cells and molecules down to 'atomic-level' resolution.
+</p>
+
+<p>
+  <em>Using</em> these highly-detailed 2D and 3D images of cells and molecules
+  to <em>better understand</em> how they function alone and in combination with
+  other elements collectively giving rise to <em>all</em> of historical
+  biological diversity across the <em>entire</em> history of our planet
+  (and perhaps any other worlds, should we find life there) is a
+  <em>major</em> challenge confronting humanity (it's even hard to write it).
+</p>
+
+<p>
+  The extraction of 'semantic information' from biologial images of cells and
+  molecules (ie, image-classification AI) is being used to help researchers
+  better understand how those cells and molecules function, in isolation and
+  through interactions. For example, 3D structural 'images' of proteins helped
+  researchers to understand the molecular basis for the SARS-CoV-2 pandemic
+  and engineer effective vaccines.
+</p>
+
+<p>
+  Computational techniques like molecular dynamics and structural
+  determination algorithms have been used for some time. So much so that their
+  importance is often overlooked! More recently, image-classification AI has
+  been proposed as a potentially important way to study how molecules work in
+  3- and 4D.
+</p>
+
+<p>
+  For example, AI-based techniques have recently advanced the
+  state-of-the-art in <em>de novo</em> protein 3D structure determination
+  from sequence data, one of the most difficult and long-standing problems
+  in structural biology. This important 'proof of concept' suggests that
+  image-analysis AI (which has mostly been developed in 2 dimensions)
+  may be effective for extracting semantic information from 'images' in
+  <em>much higher</em> dimensions.
+</p>
+
+<p>
+  Of course, there are important <em>technical</em> and <em>practical</em>
+  challenges we must face when trying to 'port' 2D image-classification
+  networks to higher dimensions. For one thing, we may lack sufficient
+  training data. Optimization algorithms that perform well in lower dimensional
+  spaces may not always work well in higher dimensions, and discontinuous,
+  complex dimensions have always been difficult for gradient-based
+  optimization methods. Computational scientists working in the areas of
+  neural network theory, optimization algorithms and software engineering
+  work to better understand how neural networks function and how to
+  more efficiently and effectively train large networks.
+</p>
+
+<p>
+  The biological sciences are beginning to <em>rapidly</em> adapt neural-network
+  based image-classification to a <em>wide</em> range of biological problems
+  across <em>all</em> fields of biology, including the range of questions
+  from 'theoretical' to 'applied'.
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

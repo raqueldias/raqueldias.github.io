@@ -36,39 +36,210 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="w3-content">
 <div class="w3-threequarter">
 
-<h1>AI is <em>really good</em> at image classification</h1>
+<h1>Modify the Data to Fix Overfitting</h1>
 
 <h5 class="w3-padding-32 w3-text-grey">
-  and this has many applications in the agricultural and life sciences.
+  We can modify the <em>data</em> or the training process to reduce overfitting.
 </h5>
 
 <p>
-  Images are everywhere, which is not surprising given that almost
-  <em>every</em> person in the developed world is walking around with a
-  digital camera <em>all the time</em>!
+  Model overfitting occurs through an interaction between the neural network
+  model, the data being used to train (aka "fit") the model, and the training
+  procedure. We could certainly modify the model to help reduce
+  overfitting (we'll get to that, later). However, in many cases we might
+  have particular reasons for using the model that we are using. In these
+  instances it makes more sense to make changes to eiter the data or the
+  training procedure, in order to help reduce overfitting associated with a
+  <em>particular</em> model.
 </p>
 
-<h2>Simplify the Model</h2>
-
 <p>
-  XX
+  These techniques are not <em>specific</em> to nerual networks but can often
+  be applied to a wide variety of statistical models in the 'AI' and
+  'machine learning' realms.
 </p>
 
 <h2>Collect More Data</h2>
 
 <p>
-  XX
+  Overfitting is particularly problematic when data are limited. So, collecting
+  <em>more</em> data can often reduce or eliminate a model's overfitting
+  problems. With more data, a given model's ability to 'overfit' the
+  <em>error</em> associated with the data sample is reduced.
+</p>
+
+<p>
+  Intuitively, we can think of it like this.
+  Let's assume there is some 'error' associated
+  with each data sample. Our 'over-parameterized' model uses <em>some</em>
+  of its parameters to fit the <em>pattern</em> in the data. But, because
+  the model has an <em>excess</em> of parameters, it can use <em>some</em>
+  of the additional parameters to begin fitting the <em>error</em> associated
+  with <em>each</em> data sample.
+</p>
+
+<p>
+  When we collect <em>additional</em> data samples from the <em>same</em>
+  underlying distribution, the <em>pattern</em> in the data remains the
+  <em>same</em>, and the given model can continue to use some of its
+  parameters to identify and fit this pattern.
+</p>
+
+<p>
+  However, the number of <em>error</em> terms associated with the data has
+  <em>increased</em>, because there is an error term associated with
+  <em>each</em> data sample, and we have incresed the number of data samples.
+</p>
+
+<p>
+  At some point, there will be enough data samples that the model will
+  <em>exhaust</em> its <em>extra</em> paramters trying to fit the error
+  associated with each sample. When the model can no longer fit the error
+  terms associated with each of the data samples, overfitting will be
+  reduced.
+</p>
+
+<p>
+  Exactly <em>how many</em> data samples are needed to reduce or eliminate
+  a given model's overfitting depends on the complexity and structure of
+  the model as well as the complexity and structure of both the pattern
+  and the error in the data samples.
+</p>
+
+<h2>Data Normalization</h2>
+
+<p>
+  Many statistical methods work better when the input data have a mean close
+  to zero and a standard deviation close to one. Neural networks, in particular,
+  often benefit from data normalization and other normalization techniques.
+</p>
+
+<p>
+  In its simplest form, an explanatory variable x can be 'normalized' using
+  the equation:
+</p>
+
+<pre class='language-none'>
+&#771;x = (x - &#773;x) / s
+</pre>
+
+<p>
+ Where x&#771; is the 'normalized' value of x, x&#773; is the mean of x over
+ all data samples, and s is the sample standard deviation calculated over
+ all data samples. Subtracting the <em>mean</em> value of the explanatory
+ variable from each sample value 'centers' the data at zero, with individual
+ samples
+ <em>less than</em> the mean having <em>negative</em> values, and
+ samples <em>greater than</em> the mean having <em>positive</em> values.
+ Dividing each sample value by the standard deviation over <em>all</em> values
+ 'scales' the standard deviation of the <em>normalized</em> data to be
+ one.
+</p>
+
+<p>
+  When there are many different explantory variables in your data,
+  another benefit of data normalization is that it puts <em>all</em> the
+  explanatory variables on roughly the <em>same</em> <strong>scale</strong>.
+</p>
+
+<p>
+  Recall that an individual neuron outputs a 'weighted sum' of its inputs
+  (plus a bias term). For example, let's say we have explanatory variables
+  x1 and x2. An individual neuron would then calculate:
+</p>
+
+<pre class='language-none'>
+out = w1*x1 + w2*x2 + b
+</pre>
+
+<p>
+ For weights w1,w2 and bias b.
+</p>
+
+<p>
+  What happens if the <em>scale</em> of x1 and x2 are <em>wildly different</em>?
+</p>
+
+<p>
+  Let's assume x1 is typically small. For example, maybe x1 is a probability,
+  in which case x1 is between zero and one (0.0 &leq; x1 &leq; 1.0). Now let's
+  assume x2 is typically large. For example, maybe x2 is a weight or height,
+  in which case x2 might be between 100 and 300 or so.
+</p>
+
+<p>
+  Assuming the <em>weights</em> w1 and w2 are on roughly the <em>same</em>
+  scale, the <em>output</em> of the neuron will be <em>dominated</em> by
+  x2, with x1 contributing very <em>little</em> to the neuron's output.
+</p>
+
+<p>
+  In this case, normalizing x1 and x2 will put them on roughtly the same
+  scale, allowing the neuron to more effectively <em>combine</em> information
+  from <em>both</em> explanatory variables in its output. Of course, the
+  neuron <em>could</em> use its <em>weights</em> to effectively normalize
+  the data, but then those parameter's couldn't be used to help the
+  network fit the <em>patterns</em> in the data.
+</p>
+
+<p>
+  In general, data normalization - and other types of normalization - typically
+  improves <em>many</em> aspects of neural networks and other statistical
+  modeling approaches, including speeding up training time and reducing both
+  underfitting and overfitting.
 </p>
 
 <h2>Stop Training Early</h2>
 
 <p>
-  XX
+  In many cases, a complex statistical model like a neural network will tend
+  to <em>first</em> fit the <em>pattern</em> in the data during the training
+  process, and only <em>after</em> the main pattern is fit will it begin to
+  fit the data <em>error</em>. If we could identify <em>when</em> during
+  training the model begins to 'overfit' the error or 'noise' in the data,
+  we could <em>stop</em> the training process <em>early</em> to avoid
+  overfitting.
+</p>
+
+<p>
+  In practice, we can use the <em>validation loss</em> calculated from the
+  <em>validation data</em> to diagnose potential overfitting during training,
+  and stop the training process when the validation loss starts to become
+  'worse' than the model's loss on the training data.
+</p>
+
+<p>
+  There are a few technical 'wrinkles' that may make early-stopping not quite
+  as straight-forward as it might first appear. For example, model losses
+  can vary <em>quite wildly</em> during the very <em>early</em> stages of
+  training, when the model's parameter values are typically nowhere near
+  their optima. In these cases, it is typically a good practice to wait for
+  a certain <em>minimum</em> number of training epochs before enabling
+  early-stopping.
+</p>
+
+<p>
+  Neural network training procedures are inherently 'stochastic', and
+  fluctuations in loss values can really occur at <em>any point</em> in
+  the training process, especially if the data set and/or batch size is
+  small. For this reason, many early-stopping criteria are only triggered
+  when the validation loss is <em>consistently</em> worse than the training
+  loss over some <em>minimum</em> number of training epochs.
+</p>
+
+<p>
+  In general, diagnosing 'convergence' of neural network training to a
+  'global optimum' can be tricky. In fact, it is almost
+  <em>never</em> guaranteed that a training procedure will find the
+  <em>global</em> optimum in practice! If you save some of your models
+  to disk over the course of the training process, you can go back and do
+  more thorough evaluations of the saved models at your leisure, at the
+  expense of disk space, of course.
 </p>
 
 </div>
 <div class="w3-quarter w3-center">
-<i class="fa fa-film fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+<i class="fa fa-check-circle fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
 </div>
 </div>
 </div>
@@ -77,24 +248,28 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
 <div class="w3-content">
 <div class="w3-quarter w3-center">
-<i class="fa fa-picture-o fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+<i class="fa fa-wrench fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
 </div>
 
 <div class="w3-threequarter">
 
-<h1>How is image classification used?</h1>
+<h1>Change the Model to Fix Overfitting</h1>
 
 <h5 class="w3-padding-32 w3-text-grey">
-  In medical research, agriculture and basic biology.
+  We can change the <em>model</em> to reduce overfitting.
 </h5>
-
-<h2>Regularization</h2>
 
 <p>
   XX
 </p>
 
-<h2>Normalization</h2>
+<h2>Simplify the Model</h2>
+
+<p>
+  XX
+</p>
+
+<h2>Model Parameter Regularization</h2>
 
 <p>
   XX

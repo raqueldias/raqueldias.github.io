@@ -260,25 +260,373 @@ out = w1*x1 + w2*x2 + b
 </h5>
 
 <p>
-  XX
+  When the model is <em>too complex</em> for the available data, it can
+  lead to extreme overfitting artifacts, as the model uses its <em>extra</em>
+  capacity to fit the error in the data samples. Predicting exactly
+  <em>when</em> overfitting is likely to occur is difficult in practice,
+  because
+  many factors can impact overfitting. Of course, the <em>number</em> of
+  data samples has a huge impact on overfitting. The <em>complexity</em> of
+  the patterns in the data can also affect overfitting, as can the complexity
+  and structure of the statistical model.
+</p>
+
+<p>
+  In general, a <em>simpler</em> model will be <em>less likely</em> to overfit,
+  especially when the number of data samples is small. Unfortunately, simpler
+  models are also <em>more biased</em>, which can lead to 'underfitting'
+  problems. When the model is <em>too simple</em> to reliably capture the
+  patterns in the data, it can produce high-confidence but <em>incorrect</em>
+  inferences, which can be strongly <em>misleading</em> in practice.
+</p>
+
+<p>
+  There are many things we can do to modify the neural network model or its
+  loss function to reduce overfitting.
 </p>
 
 <h2>Simplify the Model</h2>
 
 <p>
-  XX
+  In the heydey of probabilistic statistical modeling (~1990-2010 or so),
+  the model used to analyze the data was typically strongly linked to specific
+  hypotheses about the <em>process</em> thought to have generated the
+  data. For example, I studied evolutionary genomics as part of my PhD
+  and post-doctoral work. Many of the hypotheses we were interested in at
+  the time had to do with how <em>strongly</em> selection was acting in a
+  certain population of organisms, or how <em>variable</em> selection was
+  across a region of the genome. The statistical models we used had
+  parameters that were explicitly connected to these 'biological' concepts.
+  So, a model might have a parameter whose value indicated the mean
+  strength of selection. Another group of model parameters might describe
+  the distribution of selection strength, or its variance.
+</p>
+
+<p>
+  When a statistical model is directly connected to a mathematical description
+  of the data-generating <em>process</em> in the problem domain (in my
+  case, the evolutionary process that generated extant biodiversity), the
+  results of the data analysis are <em>directly interpretable</em> within
+  the conceptual framework of the problem domain. For example, if the data
+  analysis results in the model's estimated strength of seleciton being
+  0.0025, that number is of <em>immediate and direct</em> interest to the
+  biologist.
+</p>
+
+<p>
+  Neural networks are <em>not</em> parameterized in the same way as
+  domain-specific probabilistic models. The 'parameters' of the neural network
+  (its weights and bias terms) are <em>not</em> directly connected to
+  any mathematical description of a data-generating process within a
+  specific problem domain. Neural networks are <em>general</em>
+  function-approximation frameworks, and therefore they are not
+  <em>immediately and directly</em> interpretable within a specific problem
+  domain. Although I could use a neural network to investigate the strength
+  of selection across the genome, the best-fit 'weights' of neuron #201
+  in layer 14 won't tell me anything about the mean strength of selection
+  or any other biological concept.
+</p>
+
+<p>
+  The lack of an immediate and direct connection between the parameters of
+  a neural network and the concepts important in a particular problem domain
+  has sometimes led to a general criticism of neural networks as being
+  "uninterpretable". This is an incorrect and unfair assessment of neural
+  networks. It certainly <em>is</em> possible to interpret the results of
+  a neural-network analysis within the conceptual framework of a specific
+  problem domain; it just takes a bit of extra work.
+</p>
+
+<p>
+  One of the <em>benefits</em> of using a general-purpose statistical
+  modeling approach like a neural network - in which the model's parameters
+  are <em>not</em> connected directly to domain-specific concepts - is that
+  you can more easily <em>simplify</em> the model to reduce overfitting, without
+  directly impacting the model's ability to make inferences about the
+  process that generated the data.
+</p>
+
+<p>
+  When using a domain-specific probabilistic model, it can be difficult to
+  'remove' some parameters of the model to reduce overfitting, because those
+  parameters are <em>directly</em> connected to specific hypotheses about
+  the process that generated the data. If you remove parameters from such
+  a model, you are also <em>altering</em> the statistical hypothesis that
+  you are evaluating!
+</p>
+
+<p>
+  The <em>direct coupling</em> between a domain-specific probabilistic
+  model and a specific statistical hypothesis within the problem domain
+  makes it very difficult to 'tune' the complexity of the model to the
+  available data to avoid over- and under-fitting.
+</p>
+
+<p>
+  This problem does not occur with neural networks. Because the parameters
+  of the neural network are only <em>indirectly</em> connected to hypotheses
+  about the data, we can often reduce the number of parameters in the
+  network without fundamentally changing the types of information that
+  can be extracted from the network analysis. For example, we could reduce
+  the width of the newtork from 512 to 256, and remove a couple of hidden
+  layers from the network, without fundamentally altering the network
+  modeling process.
+</p>
+
+<p>
+  So, with neural netoworks, we are <em>gaining</em> modeling flexibility,
+  compared to previous-generation probabilistic models, while <em>losing</em>
+  some interpretability.
 </p>
 
 <h2>Model Parameter Regularization</h2>
 
 <p>
-  XX
+  With neural networks, overfitting is often associated with the presence of
+  very <em>large</em> (either positive or negative) weights, which can cause
+  radical fluctuations in the model's output associated with specific data
+  samples.
+</p>
+
+<p>
+  This observation has led to the use of "regularization" methods for reducing
+  overfitting in neural networks. These methods are direct analogs of
+  "shrinkage" techniques widely used in machine learning regression,
+  particularly "lasso" and "ridge" regression.
+</p>
+
+<p>
+  In general, "regularization" methods add an <em>additional</em> component
+  to the model's loss function:
+</p>
+
+<pre class='language-none'>
+new_loss = original_loss + regularization_loss
+</pre>
+
+<p>
+  Specifically, the "regularization_loss" is a function of the
+  <em>magnitude</em> of the model's parameters (typically the weights, in
+  the case of neural networks). So, when the model's weights get 'bigger',
+  the regularization_loss increases, and so does the model's <em>total</em>
+  loss. This tends to keep the model's weights relatively small, which can
+  reduce overfitting.
+</p>
+
+<p>
+  In practice, the regularization_loss is typically 'scaled' by a
+  user-tunable value &lambda;:
+</p>
+
+<pre class='language-none'>
+new_loss = original_loss + &lambda; * regularization_loss
+</pre>
+
+<p>
+  Common values for &lambda; are typically around 0.01 or so, although they
+  can vary and are often 'tuned' to a particular analysis.
+</p>
+
+<p>
+  There are two main regularization losses used in practice:
+  <ul>
+    <li>L1 regularization loss</li>
+    <li>L2 regularization loss</li>
+  </ul>
+</p>
+
+<h4>L1 regularization</h4>
+
+<p>
+  "L1" regularization penalizes the sum of the absolute values of the model's
+  weights:
+</p>
+
+<pre class='language-none'>
+new_loss = original_loss + &lambda; * SUM( |wi| )
+</pre>
+
+<p>
+  Here, we take the absolute value of each weight in the model "wi", add them
+  <em>all</em> up (absolute value is used so that large positive and negative
+  weights don't 'cancel' each other out). And then multiply the sum by &lambda;.
+</p>
+
+<p>
+  This 'regularization loss' is added to the loss function used to
+  train the model (original_loss) to produce a new total loss
+  (new_loss) that is somewhat larger than
+  the original loss function's value. How much larger the new loss is, compared
+  to the original loss, depends on the magnitudes of the model's weights.
+  So, the model can improve its loss <em>either</em> by reducing its original
+  loss on the training data by fitting the data better, <em>or</em> by
+  reducing its weights to reduce the regularization loss.
+</p>
+
+<p>
+  It's pretty obvious to see that the L1 regularization penalty increases
+  <em>linearly</em> with the sum of the model's weights (in absolute value).
+  So, doubling all the model's weights doubles the L1 regularization
+  penalty. When weights are very large, reducing them might be a more
+  effective means of reducing the new loss, compared to fitting more of
+  the error in the data.
+</p>
+
+<p>
+  In a large model with many parameters, L1 regularization tends to force
+  many weights to become zero, effectively 'removing' those parameters from
+  the model. This property of L1 regularization is sometimes described by
+  saying that L1 regularization tends to produce "sparse" models, in which
+  the number of effective parameters in the fitted model is less than the
+  number specified before the training process.
+</p>
+
+<h4>L2 regularization</h4>
+
+<p>
+  "L2" regularization penalizes the sum of the <em>squared</em> model
+  weights:
+</p>
+
+<pre class='language-none'>
+new_loss = original_loss + &lambda; * SUM( wi&sup2; )
+</pre>
+
+<p>
+  In this case, we multiply each of the model's weights "wi" by itself.
+  Squaring the weights makes all values positive, so negative and positive
+  weights can't 'cancel' each other out. Also, weights >1 (in absolute value)
+  are penalized <em>more</em>, and weights <1 (in absolute value) are penalized
+  <em>less</em>. Because the L2 regularization penalty associated with
+  weights 'close to' zero is very small, L2 regularization tends to produce
+  models having many small-valued weights, but without forcing the weights
+  to zero, like L1 regularization does. In other words, L2 regularization does
+  <em>not</em> tend to produce "sparse" models with large numbers of
+  zero-valued weights.
+</p>
+
+<p>
+  In case you were wondering, it <em>is</em> possible to use a
+  <em>combination</em> of both L1 and L2 regularization:
+</p>
+
+<pre class='language-none'>
+new_loss = original_loss + &lambda;1 * SUM( |wi| ) + &lambda;2 * SUM( wi&sup2; )
+</pre>
+
+<p>
+  by specifying different scaling factors &lambda;1 and &lambda;2.
 </p>
 
 <h2>Dropout</h2>
 
 <p>
-  XX
+  If we remove parameters (weights or bias terms) from the neural network, we
+  effectively 'simplify' the model, making it less likely to overfit the
+  training data. The down-side to this approach is that, if we make the model
+  <em>too</em> simple, it might under-fit the data and fail to provide
+  accurate and reliable inferences.
+</p>
+
+<p>
+  A model can <em>only</em> possibly over-fit the training data when it is
+  actually being fit to the training data during the training process. So,
+  what if we could simplify a complex neural network during training, and
+  then somehow make the model more complex after it has been fit to the
+  training data? Could we then retain some of the benefits of having a
+  simpler model during training (reduced overfitting) while <em>also</em>
+  retaining some of the benefits of having a complex model when making
+  inferences using new data (ie, less bias, or more capacity to fit complex
+  patterns in the data)?
+</p>
+
+<p>
+  Intuitively, "dropout" is a mechanism that does just that!
+</p>
+
+<p>
+  During neural-network training, "dropout" randomly sets a user-specified
+  proportion of weights (and often bias terms) to zero, effectively
+  <em>removing</em> a randomly-selected portion of model parameters
+  from the network when fitting the model to the training data. This procedure
+  makes the model 'simpler' when it is fit to the training data.
+</p>
+
+<p>
+  When the network is used to analyze new data after training, <em>all</em>
+  of the network's originally-specified parameters are included, so
+  inferences are made using the entire complex model.
+</p>
+
+<p>
+  In practice, "dropout" is usually implemented by removing a randomly-selected
+  proportion of <em>neurons</em> from the model, setting all the weights and
+  bias terms of the 'dropped-out' neurons to zero, so they no longer
+  contribute to the model's output. Typical analyses might remove 20-40% of
+  neurons from the model during dropout training. However, as with most aspects
+  of neural-network training, the specific 'dropout proportion' most appropriate
+  for a particular analysis is usually 'tuned' by the analyst.
+</p>
+
+<p>
+  By removing neurons from the network during fitting to the training data,
+  dropout <em>does</em> fit our criterion of 'simplifying' the model during
+  training. Because the model is <em>always</em> simpler during training,
+  models with dropout are less susceptible to overfitting.
+</p>
+
+<p>
+  Unfortunately, models trained using dropout are not <em>equivalent</em>
+  to the fully-specified model in terms of model complexity or modeling
+  capacity. Using dropout <em>reduces</em> the capacity of the entire trained
+  model to capture complex patterns in the data.
+</p>
+
+<p>
+  Technically, models trained using dropout <em>approximate</em> the
+  fully-specified neural network using an "ensemble" of randomly-generated
+  simpler models.
+</p>
+
+<p>
+  "Ensemble" methods made a huge splash in the early 2000s, when they
+  significantly improved state-of-the-art performance of a wide variety of
+  statistical inference methods in a large number of complex problem domains.
+</p>
+
+<p>
+  An ensemble method is any approach that combines the results of several
+  different models into one prediction or inference. Historically, this was
+  done by fitting a user-specified number of simple 'sub-models' to the data,
+  and then
+  generating the 'ensemble prediction' as a weighted-sum of the predictions
+  from each sub-model:
+</p>
+
+<pre class='language-none'>
+M(x) = SUM( pi * sub_model_i(x) )
+</pre>
+
+<p>
+  Here "M(x)" is the ensemble model's predicted response, given the explanatory
+  variable values "x". We sum over the predicted responses of each sub-model
+  (sub_model_i(x)), each 'weighted' by "pi", which specifies the amount of
+  'credibility' given to sub_model_i.
+</p>
+
+<p>
+  Dropout is essentially a method for automatically generating and fitting a
+  large number of sub-models to the data. Each sub-model is randomly generated
+  by removing a proportion of neurons from the fully-specified model. The
+  'credibility' associated with each sub-model ("pi") can be thought of as
+  roughly tracking the number of times sub_model_i was generated during the
+  training process, although in practice each of the "pi" values becomes
+  so small that they can be safely ignored.
+</p>
+
+<p>
+  Dropout can effectively reduce model over-fitting while maintaining
+  (most of) the complex model's capacity to fit complex patterns in the data.
 </p>
 
 </div>

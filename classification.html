@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>classification</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">CLASSIFICATION</h1>
+  <p class="w3-xlarge">this is this, and that is that</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>What is object classification?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Labelling data as one of a finite number of categories.
+</h5>
+
+<p>
+  'Object classification' is one of the key problem domains in which neural
+  networks have achieved super-human performance. It is a major focus of the
+  AI research community and a 'model problem' used to develop and evaluate
+  new AI approaches.
+</p>
+
+<p>
+  Object classification is a particular <em>type</em> of problem with many
+  different applications across a wide variety of disciplines. Object
+  classification has been used in handwriting analysis and in business to develop
+  AI methods to assist customer searches for specific items. Object
+  classification can be used in medicine to identify cancerous vs non-cancerous
+  cells, in land-use analysis to identify changes in vegetative cover associated
+  with human activities, and in agriculture to identify pest outbreaks.
+</p>
+
+<p>
+  In general, 'object classification' can refer to any process in which data
+  samples are 'labelled' or 'classified' into one or more pre-determined
+  categories or 'classes'. For example, an AI system may look at images of
+  clothing and determine if the apparel are associated with spring, summer,
+  fall or winter wardrobes. Or an AI system may consider images of animals
+  and determine the species of animal depicted.
+</p>
+
+<p>
+  Object classification is commonly associated with image data, because the
+  vast majority of AI classifiers have been developed for the purpose of
+  labelling images with semantic information. However, object classification
+  need not consider only image data; any data about an object can be used
+  to classify it using AI.
+</p>
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-map-signs fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-umbrella fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>How does object classification work?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Object classification is regression with multiple output neurons.
+</h5>
+
+<p>
+  Neural networks are composed of modular linear models (aka, "neurons"),
+  hooked together with nonlinear activation functions to implement complex
+  models capable of approximating any functional relationship between explanatory
+  and response variables.
+</p>
+
+<p>
+  In general, object classification can use <em>any</em> type of neural
+  network model, provided the 'shape' of the network's input layer matches
+  the 'shape' of the explanatory variables.
+</p>
+
+<p>
+  In the case of object classification, the 'response variable' is a "categorical"
+  variable (also sometimes called a "qualitative" variable), rather than the
+  "quantitative" response variables used in regression problems. The response
+  variable in object classification problems encodes the specific category or
+  "class" to which the data sample belongs.
+</p>
+
+<p>
+  For example, let's say we have a classification problem in which we want to
+  examine image data and determine whether the image is of a cat, a dog or
+  a human. In this case, there are 3 different categories: "cat", "dog" and
+  "human", and <em>every</em> image must be assigned to one of these
+  pre-determined categories.
+</p>
+
+<p>
+  It is common in nearly all object classification problems that the
+  <em>complete</em> list of all possible categories must be determined
+  <em>before</em> the analysis, and it is very difficult to <em>extend</em>
+  an existing classifier to incorporate <em>new</em> possible categories, after
+  it has been trained. In our example, we have a classifier with 3 possible
+  categories, so every image we analyze <em>must</em> be an image of either a
+  cat, a dog or a human.
+</p>
+
+<p>
+  How do we encode the categories: "cat", "dog" and "human" in a form that
+  computers can 'understand'?
+</p>
+
+<p>
+  In most cases, categorical variables are encoded as integer values, starting
+  at zero (sometimes 1), and ending at the number of possible categories minus 1
+  (sometimes the number of categories). So, in our case, we could encode:
+</p>
+
+<pre class='language-none'>
+cat = 0
+dog = 1
+human = 2
+</pre>
+
+<p>
+  Or, alternatively, we could set "cat"=1, "dog"=2 and "human"=3. In general,
+  computer scientists typically prefer to start 'counting' things beginning
+  with the value zero, whereas professionals in other fields tend to begin
+  counting things starting with one, but it really doesn't matter in any
+  deep sense.
+</p>
+
+<p>
+  You'll often see categorical variables encoded as integers in 'human readable'
+  data files, but neural networks typically <em>don't</em> encode categorical
+  variables this way. There are a few reasons for this; primarily:
+  <ul>
+    <li>Neural networks typically can't use integers directly; they require
+    floating-point numbers.</li>
+    <li>Numbers (integers or floating-point) typically imply quantitative
+    similarities, which are not necessarily appropriate for categorical
+    data. For example, encoding cat=1, dog=2 and human=3 implies that,
+    quantitatively, the category "dog" sits 'between' "cat" and "human",
+    just because the number 2 is 'between' the numbers 1 and 3. Is this
+    appropriate? Should the category 'dog' be equivalent to cat+1?</li>
+  </ul>
+</p>
+
+<p>
+  In many cases, categorical variables are encoded as what's called
+  "one-hot encoding" for neural networks. This is particularly true in the
+  case of object classification and is so common that there is a tensorflow
+  object that will <em>automatically</em> encode integer class labels as
+  one-hot encodings.
+</p>
+
+<p>
+  A "one-hot encoding" of a categorical variable 'expands' the variable into
+  multiple columns in the data matrix, each representing a single possible
+  category or class. Each data sample has zero-valued entries for <em>every</em>
+  possible category <em>except</em> the category to which the data sample
+  belongs.
+</p>
+
+<p>
+  In our example, images can be classified as "cat", "dog" or "human"; there
+  are 3 possible classes, so we can create 3 possible 'labels' for our
+  images:
+</p>
+
+<pre class='language-none'>
+label_cat, label_dog, label_human
+</pre>
+
+<p>
+  An image of a cat would have zero-valued entries for the labels: "label_dog"
+  and "label_human", but a one-valued entry for the label: "label_cat":
+</p>
+
+<pre class='language-none'>
+label_cat, label_dog, label_human
+   1          0          0
+</pre>
+
+<p>
+  The image of a cat would get a one-hot encoding consisting of the 'tuple':
+  (1,0,0). An image of a dog would get the one-hot encoding: (0,1,0), and
+  an image of a human would be one-hot encoded as: (0,0,1).
+</p>
+
+<p>
+  With one-hot encoding, the number of possible categories or classes defines
+  the <em>output shape</em> of the neural network classifier. In our example,
+  there are 3 possible classes ('cat', 'dog' or 'human'), so the one-hot
+  encoded output of our neural network should be a rank-1 tensor (ie, a
+  "vector") in 3 dimensions. That is, the neural network classifier's output
+  layer should have shape:
+</p>
+
+<pre class='language-none'>
+(3,)
+</pre
+
+<p>
+  Or:
+</p>
+
+<pre class='language-none'>
+(None,3)
+</pre>
+
+<p>
+  if we include the 'batch' dimension.
+</p>
+
+<p>
+  In general, nearly all object-classification networks use this approach, in
+  which the output shape of the network is a vector (rank-1 tensor) with
+  dimension equal to the number of possible object classes. This is almost always
+  implemented as a "dense" neural-network layer with the number of neurons
+  (aka, 'units') equal to the number of object classes (3, in this example).
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

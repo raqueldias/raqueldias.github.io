@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>activloss</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">CLASSIFICATION DETAILS</h1>
+  <p class="w3-xlarge">activation and loss functions for classification</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>What activation function is used for object classification?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Softmax activation.
+</h5>
+
+<p>
+  For regression problems, we typically use "linear" activation for the output
+  neuron, which is equivalent to taking the raw output from the output
+  neuron and not applying any nonlinear activation function. So, the
+  output of a neural network used for regression is typically a real-valued
+  number (ie, a "floating point" number), which can be anywhere between
+  -&infin; and +&infin;.
+</p>
+
+<p>
+  In the case of object classification, we want the neural network to output
+  a predicted 'class label' for each data sample. For one-hot-encoded class
+  labels, the class label is 'encoded' as a binary vector with dimension
+  equal to the number of possible classes. The one-hot-encoded class label
+  has zero entries for every class <em>except</em> the class the
+  data sample belongs to, which gets an enty of one.
+</p>
+
+<p>
+  We can get our neural network to output a k-dimensional vector by setting
+  the output layer of the network to have k neurons or "units". But, how
+  do we get the output layer to produce one-hot-encoded outputs?
+</p>
+
+<p>
+  Well, in reality, we don't want our netowrk to output one-hot-encoded object
+  classification predictions. For <em>labelled</em> data in which we know
+  the correct classification with absolute certainty, one-hot encoding makes
+  sense. If we know the correct class label, we can set the <em>probability</em>
+  of the correct class to 1.0, and we can set the probability of every
+  <em>other</em> possible class to 0.0; this is exactly what one-hot
+  encoding does!
+</p>
+
+<p>
+  But, when we are <em>predicting</em> an object's class, we'd prefer the
+  predictive model to output a <em>probability distribution</em> over all
+  possible classes, where the value assigned to each possible class label
+  represents the <em>probability</em> that the data sample came from that
+  class, and the sum of the probabilities over <em>all possible</em> classes
+  is 1.0. This allows us to assess the <em>confidence</em> of the model in
+  its prediction.
+</p>
+
+<p>
+  Let's look at an example. Let's say we want to classify images as either
+  "dog", "cat" or "human". If we assume this ordering, we can one-hot encode
+  an image of a dog as the vector (1,0,0), a cat as the vector (0,1,0)
+  and an image of a human as (0,0,1). But what if we are certain an image
+  is <em>not</em> a human, but it could be either a dog or a cat? We could
+  encode this information as the vector (0.5,0.5,0). This is <em>not</em> a
+  one-hot encoding! But if we 'read' this vector as a probability distribution,
+  it <em>does</em> encode the information that we are <em>certain</em> the
+  image is <em>not</em> a human, because the probability of the "human"
+  entry is zero. Also, the probability that the image is a "dog" is 0.5,
+  and the probability that it is a "cat" is 0.5.
+</p>
+
+<p>
+  In general, we could encode <em>any</em> ambiguous classification as a
+  probability distribution over the three possible classes, in this case.
+  For example, if we are 95% certain an image is a human, we could encode
+  this information as the classification vector (0.025,0.025,0.95), assuming
+  we are equally unsure about whether the image could be a dog or a cat. So
+  long as <em>each</em> of the vector entries is &ge;0 and they all sum to
+  1.0, the vector is a valid probability distribution over the possible
+  classes. These probability distributions are by far the most common way
+  to encode the output of neural network classifiers.
+</p>
+
+<h5>How do we get a neural network to output a probability distribution?</h5>
+
+<p>
+  The "softmax" activation function is a 'special' activation function that
+  converts the output of a neural network layer into a probability distribution
+  over the number of neurons ("units") in the layer.
+</p>
+
+<p>
+  Unlike a 'typical' activation function, "softmax" activation is <em>not</em>
+  applied <em>independently</em> to each of the neuron's outputs. Rather,
+  softmax activation <em>combines</em> the outputs from <em>all</em> of the
+  neurons in the layer and converts those outputs into a probability
+  distribution (ie, each output is &ge;0, and the sum of all the outputs is
+  1.0).
+</p>
+
+<p>
+  Technically, the softmax activation function is given by the equation:
+</p>
+
+<img src="./media/softmax_equation.svg"/>
+
+<p>
+  where <em>z</em> are the raw neuron outputs, and there are <em>K</em>
+  possible class labels. The important thing to notice is that each neuron's
+  activation is divided by the <em>sum</em> of all the activations from all
+  the neurons in the layer, effectively <em>normalizing</em> the activations
+  to sum to 1.0. Raising <em>e</em> to the power of the activation ensures
+  that each of the activations is &ge;0. So, softmax activation produces a
+  probability distribution over all output neurons, given the raw neuron
+  outputs.
+</p>
+
+<h4>The special case of binary classification</h4>
+
+<p>
+  When there are only two possible classes, this is called
+  "binary classification", and it is often treated a little differently than
+  when there are more than two possible classes.
+</p>
+
+<p>
+  XX.
+</p>
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-bar-chart-o fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-arrows-h fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>What loss function is used for object classification?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Cross-entropy loss.
+</h5>
+
+<p>
+  XX.
+</p>
+
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

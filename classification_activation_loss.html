@@ -155,7 +155,63 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </p>
 
 <p>
-  XX.
+  In the case of only two possible classes, if you know the probability that
+  an object is in one class, then you <em>automatically</em> know the
+  probability that it is in the other class. This makes the probability
+  calculation a bit simpler, and it also allows you to make your model
+  simpler.
+</p>
+
+<p>
+  For binary classification problems, we can use a <em>single</em> data
+  column to represent the data sample's class. The entry in the data column
+  of zero means that the data sample belongs to the first class, and an
+  entry of one means the data sample belongs to the other class. For
+  example, if we want to classify images as either "cat" or "dog", we can
+  encode "cat" as zero and "dog" as one.
+</p>
+
+<p>
+  So, for binary classification, we can represent an object's class label
+  as a vecor (rank-1 tensor) of dimension 1. In this example, the class label
+  vector represents the probability that the data sample or object is a
+  "dog". And, of course:
+</p>
+
+<pre class='language-none'>
+Probability("cat") = 1 - Probability("dog")
+</pre>
+
+<p>
+  Now that we've encoded our binary class label as a 1-dimensional vector,
+  we can use a <em>single</em> output neuron to produce our class predictions.
+</p>
+
+<p>
+  The single output neuron needs to output the probability
+  that the data sample is a "dog", in this example. This output must be
+  between zero and one (because it's a probability), so linear activation
+  is not appropriate.
+</p>
+
+<p>
+  However, <em>sigmoid</em> activation takes a raw neuron's output and
+  transforms it into a value between zero and one using the equation:
+</p>
+
+<pre class='language-none'>
+sigmoid(z) = 1 / (1 + <em>e</em>^-z)
+</pre>
+
+<p>
+  where <em>e</em>^-z means 'raise <em>e</em> to the power -z', and z
+  is the neuron's raw output. When the neuron's output z is zero,
+  sigmoid(z)=0.5. As z gets larger, sigmoid(z) approaches 1.0, and as
+  z gets increasingly negative, sigmoid(z) approaches 0.0.
+</p>
+
+<p>
+  Perfect! That's all we need to do binary classification.
 </p>
 
 </div>

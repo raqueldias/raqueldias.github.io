@@ -237,7 +237,120 @@ sigmoid(z) = 1 / (1 + <em>e</em>^-z)
 </h5>
 
 <p>
-  XX.
+  For object classification problems, we want a loss function that encourages
+  the model to produce high probabilities for the object's <em>correct</em>
+  class and penalizes the model when it produces <em>low</em> probabilities
+  for the object's correct class. Obviously, loss functions like mean squared
+  error - which are appropriate for regression problems - aren't going to
+  work well for classification problems.
+</p>
+
+<p>
+  By far the most commonly-used loss function for object classification is
+  "categorical cross-entropy", which is often also called simply,
+  "cross-entropy".
+</p>
+
+<p>
+  Categorical cross-entropy loss is calculated as:
+</p>
+
+<pre class='language-none'>
+cross_entropy_loss = -log( probability_of_correct_class )
+</pre>
+
+<p>
+  In words, the cross-entropy loss is calculated by taking the negative
+  logarithm of the model's predicted probability of the <em>correct</em>
+  class label.
+</p>
+
+<p>
+  So, if the correct class label for a data sample is "dog", the cross-entropy
+  loss is the negative log of the model's predicted probability that the
+  data sample is a "dog".
+</p>
+
+<p>
+  Looks pretty simple! But does it work?
+</p>
+
+<p>
+  Let's run through a few examples to check.
+</p>
+
+<p>
+  First of all, if the model correctly predicts an object's class with
+  <em>maximal</em> probability of 1.0, we get:
+</p>
+
+<pre class='language-none'>
+loss = -log(1.0) = 0.0
+</pre>
+
+<p>
+  So, that looks good: correctly predicting an object's class with absolute
+  certainty results in zero cross-entropy loss.
+</p>
+
+<p>
+  What if the model predicts the correct class with <em>lower</em> certainty,
+  say 0.9?
+</p>
+
+<pre class='language-none'>
+loss = -log(0.9) = 0.0457
+</pre>
+
+<p>
+  In this case, the cross-entropy loss goes up, but not by very much. So, the
+  model is being <em>penalized</em> for being less certain in its correct
+  prediction.
+</p>
+
+<p>
+  What happens when the model predicts the <em>wrong</em> class?
+</p>
+
+<p>
+  For the model to predict an incorrect class label, the probability of a
+  <em>wrong</em> class label must be <em>higher</em> than the probability of
+  the <em>correct</em> class label. In other words, when the model makes a
+  <em>wrong</em> prediction, the probability of the <em>correct</em> class
+  will be <em>low</em>.
+</p>
+
+<p>
+  For example:
+</p>
+
+<pre class='language-none'>
+loss = -log(0.1) = 1.0
+</pre>
+
+<p>
+  Assuming base-10 logarithms. Cross-entropy loss goes up when the probability
+  of the correct class goes down. In a more extreme case:
+</p>
+
+<pre class='language-none'>
+loss = -log(0.0001) = 4.0
+</pre>
+
+<p>
+  So, we're going in the 'right' direction; the <em>lower</em> the probability
+  of the correct class, the <em>higher</em> the cross-entropy loss.
+</p>
+
+<p>
+  A potential problem arises if the model assigns a probability of <em>zero</em>
+  to the correct class, because the negative logarithm of 0.0 is undefined!
+  As the probability of the correct class approaches zero, the negative log of
+  that probability approaches +&infin;. We can fix this problem in practice
+  by either assigning a <em>maximum</em> cross-entropy loss whenever the
+  model's predicted probability of the correct class gets <em>too low</em> or
+  by assigning some <em>minimum</em> probability to the correct class in the
+  model's output, both of which essentially do the 'same thing'.
 </p>
 
 

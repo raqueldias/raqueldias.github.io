@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>conv</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">convolution neurons</h1>
+  <p class="w3-xlarge">local connections; shared weights</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>What is a convolution neuron?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  A linear model connected to a contiguous subset of the inputs.
+</h5>
+
+<p>
+  The 'dense' neurons we have been working with so far are called "densely connected",
+  because each neuron receives its inputs from <em>every</em> possible input.
+  For example, if there are n inputs x1,x2,...xn, a densely connected neuron will
+  receive inputs from all x1,x2,...xn, and each input to the neuron will have its
+  own input
+  weight, w1,w2,...wn. If there are 28 neurons in the layer, each of those 28
+  neurons would receive the same x1,x2,...xn inputs, and each neuron would have its
+  own <em>independent</em> 28 input weights (and a bias term).
+</p>
+
+<p>
+  "Densely connected" neuron layers are maximally flexible statistical models,
+  because each of the neurons in the layer is independent, and each neuron
+  is able to make use of the <em>entire</em> input information.
+</p>
+
+<p>
+  The downside to using 'dense' neuron layers is that they also maximize the
+  number of trainable parameters in the model. Because each of the neurons is
+  independent, <em>all</em> the weights and the bias term from each neuron is
+  a free or trainable parameter in the model. If a new neuron is added to the
+  layer, it automatically adds a new bias term and new input weights for
+  <em>each</em> of the layer's inputs. Similarly, if you add a new input to
+  the layer, you need to add a new trainable input weight to <em>each</em> of
+  the neurons in the layer. Put another way, densely connected neural networks
+  do not "scale well"; increasing either the number of neurons in the layer or
+  the number of inputs to the layer tends to add <em>a lot</em> of new
+  trainable parameters to the model.
+</p>
+
+<p>
+  Models with a lot of trainable parameters can be good for modeling complex
+  nonlinearities in the data. However, 'parameter-rich' models <em>also</em>
+  require greater amounts of data to reliably train, and they are more prone
+  to overfitting the training data.
+</p>
+
+<p>
+  Much of the more recent research in neural networks has been focused on
+  reducing the number of trainable parameters in the model, while maintaining
+  the model's ability to capture complex nonlinearities. Many of the first
+  success stories of neural networks performing complex inferences with
+  super-human accuracy made extensive use of "convolution" neural network
+  layers, which use a specific approach to reduce model complexity by combining
+  shared neuron weights and local input connectivity.
+</p>
+
+<p>
+  In contrast to dense neural network layers, in which each neuron in the
+  layer is connected to every layer input, convolution neurons are only
+  connected to a contiguous subset of layer inputs. For example, let's
+  say we have layer inputs x1,x2,x3,x4,x5,x6 and a network layer with 4
+  neurons. In a densely-connected layer, each of the 4 neurons would have
+  6 input weights, one for <em>each</em> of the layer inputs. In a convolution
+  layer, the user defines the number of input weights based on preference. A
+  commonly-used option is to connect each convolution neuron to three contiguous
+  inputs. Using these values, in our example the first convolution neuron
+  would be connected to inputs x1,x2,x3, the second would be connected to
+  inputs x2,x3,x4, the third connected to x3,x4,x5, and the fourth convolution
+  neuron would be connected to inputs x4,x5,x6. In the densely-connected
+  layer, each of the four neurons has 6 input weights (one for each of the
+  inputs), plus a bias term, so there are (6+1)*4 = 28 trainable parameters
+  in the layer. In the convolution layer, each of the four neurons has only
+  3 input weights, plus a bias term, so there are (3+1)*4 = 16 trainable
+  parameters. So, local connectivity reduces the number of trainable
+  parameters in convolution neural-network layers, compared to dense layers.
+</p>
+
+<p>
+  In addition to local connectivity, convolution neural-network layers also
+  use weight sharing to reduce the number of trainable parameters in the
+  layer. In our example, each of the four convolution neurons in the layer
+  uses the <em>same</em> input weights and bias term, only each neuron
+  applies those <em>same</em> shared parameters to a <em>different</em>
+  contiguous subset of the inputs. In this example, sharing weights and
+  bias terms across neurons in the convolution layer reduces the number of
+  trainable parameters in the layer to 3+1 = 4.
+</p>
+
+<p>
+  The number of input weights for a convolution neuron is a user-specified
+  parameter, allowing the user to control the number of trainable parameters
+  in the neuron layer, <em>independent</em> of the number of layer inputs
+  or the number of neurons in the layer. In our example, we specified that
+  each convolution neuron would receive 3 inputs and have 3 input weights.
+  Another way of saying this is that the "kernel size" of the convolution
+  layer is 3. Notice that each convolution neuron receives a <em>contiguous</em>
+  subset of inputs, xi-1,xi,xi+1 in this case. This is common in convolution
+  neural-network layers; each convolution neuron is responsible for processing
+  <em>local</em> information from the inputs.
+</p>
+
+<p>
+  Other than the local connectivity and shared input weights, convolution
+  neurons perform the same computations as dense neurons; they compute a
+  simple linear combination of their inputs. So, just like dense neurons,
+  convolution neurons are simple linear models. They can be used with the
+  same nonlinear activation functions as dense neurons to build nonlinear
+  neural-network models.
+</p>
+
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-snowflake-o fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-arrows fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>Convolution layers</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Grouping convolution neurons together.
+</h5>
+
+<p>
+  In the case of a densely-connected neural-network layer, we specify the
+  number of <em>outputs</em> of the layer directly, by specifying the
+  number of dense neuron "units" in the layer. In the case of a convolution
+  neural-network layer, we don't specify the number of layer outputs directly.
+  Rather, the number of outputs of a convolution neural-network layer is
+  calculated automatically, based on the number of inputs to the layer and
+  other user-specified parameters that describe how the convolution layer
+  works.
+</p>
+
+<p>
+  The main parameter that is used to control the output size of a convolution
+  neural network layer is often called the "kernel size". Kernel size specifies
+  how many inputs are used in the convolution neuron to produce its output.
+  In the case of a 'one-dimensional' convolution neuron, the input is a
+  vector (rank-1 tensor), and the kernel size is a scalar indicating how
+  many contiguous inputs are combined in the convolution neuron.
+</p>
+
+<p>
+  For example, if a layer has inputs x1,x2,x3,x4,x5,x6, and we specify a kernel
+  size of 3, the inputs get distributed to convolution neurons as follows:
+  <ul>
+    <li>x1,x2,x3 -> neuron 1</li>
+    <li>x2,x3,x4 -> neuron 2</li>
+    <li>x3,x4,x5 -> neuron 3</li>
+    <li>x4,x5,x6 -> neuron 4</li>
+  </ul>
+  Notice that some inputs are <em>shared</em> across different neurons. For
+  example, input x3 is used for neurons 1, 2, and 3, but not for neuron 4.
+</p>
+
+<p>
+  Also notice that there are only 4 outputs of the convolution layer, corresponding
+  to neurons 1,2,3 and 4, even though there are 6 inputs.
+</p>
+
+<p>
+  If we took the same 6 inputs but used a kernel size of 5, we would get the
+  following convolution layer:
+  <ul>
+    <li>x1,x2,x3,x4,x5 -> neuron 1</li>
+    <li>x2,x3,x4,x5,x6 -> neuron 2</li>
+  </ul>
+  In this case, there are <em>more</em> inputs that are shared across
+  different neurons, and there are only 2 outputs. In general, a <em>larger</em>
+  kernel size produces a <em>smaller</em> number of layer outputs from
+  the convolution layer.
+</p>
+
+<p>
+  The most common application of convolution neural network layers is in the
+  area of image analysis, where the input data have at least 2 'dimensions'.
+  For nearly all image-analysis problems, we would use a "2-dimensional"
+  convolution neuron, which combines inputs from a contiguous 'square' of
+  image data to produce an output.
+</p>
+
+<p>
+  In the case of "2D" convolutions, the kernel size must be specified in both
+  the 'x' and 'y' dimensions. That is, the kernel size is a 'tuple' of two
+  numbers, the first of which specifies the 'height' (y-dimension) of the
+  kernel, and the second of which specifies the 'width' (x-dimension) of the
+  kernel. In practice, the kernel is almost always a 'square' with equal
+  width and height.
+</p>
+
+<p>
+  As an example, let's say we have an 'image' consisting of the following
+  inputs:
+</p>
+
+<pre class="language-none">
+x01 x02 x03 x04
+x05 x06 x07 x08
+x09 x10 x11 x12
+x13 x14 x15 x16
+</pre>
+
+<p>
+  If we were to specify a 2D convolution layer with a kernel size of (3,3),
+  we would get the following distribution of inputs across the neurons in
+  the layer:
+  <ul>
+    <li>x01,x02,x03, x05,x06,x07, x09,x10,x11 -> neuron 1</li>
+    <li>x02,x03,x04, x06,x07,x08, x10,x11,x12 -> neuron 2</li>
+    <li>x05,x06,x07, x09,x10,x11, x13,x14,x15 -> neuron 3</li>
+    <li>x06,x07,x08, x10,x11,x12, x14,x15,x16 -> neuron 4</li>
+  </ul>
+  In addition, the 4 output neurons would be configured to 'match' the
+  2-dimensional 'shape' of the input 'image', so they would be organized
+  as follows:
+</p>
+
+<pre class='language-none'>
+neuron1 neuron2
+neuron3 neuron4
+</pre>
+
+<p>
+  Sometimes it can be helpful to visualize a convolution neural network layer
+  as a a process that 'slides' over the input to the layer, processing each
+  contiguous block of inputs sequentially, like in the following animation:
+</p>
+
+<img src="./media/no_padding_no_strides.gif">
+
+<p>
+  But it's important to remember that this is <em>not</em> how the convolution
+  layer is actually implemented; it is implemented in parallel to improve
+  computational efficiency on the GPU.
+</p>
+
+<p>
+  Nonetheless, the animation shows that each contiguous 'block' of 3x3 inputs
+  (blue) is combined to form a single output in the convolution layer (green).
+  And the spatial configuration of the layer's output (2x2) matches the
+  configuration of the input (3x3). The 'combining' of contiguous blocks of
+  information in the convolution layer causes the output of the layer to
+  be <em>smaller</em> than the input.
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

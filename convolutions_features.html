@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>convfilter</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">convolution filters</h1>
+  <p class="w3-xlarge">using many convolutions together</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>images and image depth</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  An image can have depth.
+</h5>
+
+<p>
+  We've been talking about image data as "2 dimensional", and it's certainly
+  true that, in a general sense, images have height and width, but no
+  'depth'; or do they?
+</p>
+
+<p>
+  In a computer, an image has to be stored as data using numbers to describe
+  each 'pixel' in the image in such a way that the image can be displayed
+  on the screen using software. In the case of a black-and-white (aka, "grayscale")
+  image, the 'intensity' of each pixel can be adequately described using a
+  single numerical value (a scalar). However, in the case of a color image,
+  there is no efficient way to 'encode' a pixel's color using only a single
+  numerical value. Rather, each pixel's data is encoded as a vector of
+  numbers describing the individual values for each 'channel' in the image.
+</p>
+
+<p>
+  Perhaps the 'simplest' pixel encoding for color images contains 3 channels,
+  corresponding to the colors: red, green and blue (aka, RGB). In
+  this case, each pixel is described using a vector of 3 numerical values,
+  which are typically between 0 and 256. The image below shows how a color
+  image can be 'made up of' three different 'channels', one for red, one for
+  green, and one for blue.
+</p>
+
+<img src="./media/rgb.png">
+
+<p>
+  When the three channels making up a color image are 'combined' by software,
+  the image can be displayed on the screen.
+</p>
+
+<p>
+  Image 'channels' need to be dealt with when developing or understanding
+  convolution neural-network layers. Up until now, we've assumed images have
+  a single channel, and that convolution network layers also output a single
+  channel. This is obviously not always the case.
+</p>
+
+<p>
+  In reality, image data are encoded <em>not</em> as a rank-2 tensor (ie,
+  a matrix) but as a rank-3 tensor, with the 3rd rank typically used to
+  encode the 'channel' data for each pixel in the image. For example, a
+  64x64 pixel color image would not be encoded by a tensor of shape (64,64),
+  but as a rank-3 tensor of shape (64,64,3). The first two ranks would encode
+  the location of each pixel, and the last rank would encode the RGB channel
+  data as a 3-dimensional vector.
+</p>
+
+<p>
+  Even with this added 'twist' to the image data, we still analyze image data
+  using "2D" convolutions. However, the convolutions <em>automatically</em>
+  incorporate the multiple channels. Very simply, a single convolution
+  will <em>independently</em> apply its input weights to <em>each</em> of
+  the separate input channels, and then sum over all channel outputs to produce
+  the final output from the convolution layer.
+</p>
+
+<p>
+  The following animations show how a convolution layer 'first' produces
+  separate individual outputs for the red, green and blue image channels, and
+  then sums the channel outputs.
+</p>
+
+<img src="./media/rgbconvolution1.gif" width=600>
+<img src="./media/rgbconvolution2.gif" width=600>
+
+<p>
+  It's important to remember, however, that these animations describe the
+  <em>conceptual</em> steps that occcur in a convolution calculation and do
+  not necessarily reflect how the calculations are actually <em>implemented</em>
+  in software or hardware.
+</p>
+
+<p>
+  So, a single convolution "filter" combines information from multiple image
+  "channels" to produce a convolution layer's output.
+</p>
+
+
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-picture-o fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-camera-retro fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>Convolution filters</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Calculating multiple convolutions from the same input.
+</h5>
+
+<p>
+  So far, we have been considering a convolution neural network layer
+  producing a single 'channel' of outputs that combines information from
+  a contiguous 'block' of inputs and any input 'channels'.
+</p>
+
+<p>
+  In nearly all practical cases, we will want to apply <em>many</em> different
+  convolution 'filters' to the same input data. This allows different convolution
+  operations to 'specialize' in extracting different types of 'information'
+  from the input data, which can be used later on in the neural network.
+  For example, some convolution 'filters' might extract the presence of
+  horizontal lines in the image data, while other 'filters' might extract
+  the presence of vertical lines. Later on in the network, information from
+  these different filters can be 'combined' to identify 'higher order'
+  image features like rectangles. The extraction of 'higher order' image
+  features appears to be important for building convolution neural networks
+  capable of reliable complex inferences, such as facial recognition or
+  object classification.
+</p>
+
+<p>
+  We can specify the number of independent convolution "filters" we would
+  like to have in a convolution neural-network layer. Each 'filter' has its
+  own independent set of convolution neurons that share input weights and
+  the bias term and produce an independent output. Each 'filter' combines
+  information from <em>all</em> input channels and produces a single output
+  'channel'. Collectively, the outputs from <em>all</em> the 'filters' in
+  the layer are 'concatenated' (sometimes called "stacked") together to
+  generate multiple 'output channels' (although convolution outputs are
+  more commonly referred to as "filters", not "channels", which is typically
+  only used to refer to primary image data).
+</p>
+
+<p>
+  For example, if we have an input image of size 64x64, with 3 channels
+  (red, green, blue), and we specify a convolution layer with 256 filters,
+  the output of the convolution layer will have 256 'dimensions' for each
+  pixel, one from the output of each filter. In other words, the shape
+  of the input image is (64,64,3), and the shape of the output of the
+  convolution layer is (k,k,256), where 'k' is determined by the kernel
+  shape used in the convolution layer. For example, if we use a kernel
+  shape of (3,3), then the output of the layer would be of shape: (62,62,256).
+</p>
+
+<p>
+  Of course, we can use the output of one convolution layer as the <em>input</em>
+  to another convolution layer. For example, if we send our (62,62,256) output
+  as input to a new convolution layer with kernel shape (3,3) and 128 filters,
+  the output of our new layer would have shape: (60,60,128).
+</p>
+
+<p>
+  In any case, the dimension of the <em>last</em> rank in a convolution layer's
+  output is <em>always</em> the number of filters specified by the user. The
+  dimensions of the other ranks are determined by the shape of the input
+  tensor and the shape of the convolution layer's kernel.
+</p>
+
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

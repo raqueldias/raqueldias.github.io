@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>seqs</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">sequence data</h1>
+  <p class="w3-xlarge">sequences and recurrent networks</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>What is sequence data?</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  You just put one... foot... in front of... the other...
+</h5>
+
+<p>
+  We live in a world of spatial and temporal 'locality'; some things are
+  naturally 'closer' to us in time and/or space, while other things are
+  'farther away'. Your last birthday is 'closer' (in time, and in the past)
+  than your death (hopefully!), and your cup of coffee is 'closer' (in space)
+  than that tree outside (hopefully).
+</p>
+
+<p>
+  The idea of 'locality' is central to many types of data. We've already
+  examined 'spatial locality' in 2-dimensional image data. In the case of
+  2D images, if you want to 'understand' what a specific image 'pixel'
+  "means", you might want to 'look at' the pixels 'around' it. A convolution
+  neuron incorporates this concept of 'spatial locality' by 'combining'
+  input information from neighboring pixels when producing its output.
+</p>
+
+<p>
+  Similar to a 2-dimensional 'image', a "sequence" is a <strong>1-dimensional</strong>
+  data structure that includes the concept of 'locality'. A sequence is a 'list'
+  or 'vector' (rank-1 tensor) of items, in which consecutive items are
+  considered 'neighbors' in the sequence; they are 'close to' each other.
+</p>
+
+<p>
+  For example, given the sequence:
+</p>
+
+<pre class='language-none'>
+[ a, b, c, d, e, f, g ]
+</pre>
+
+<p>
+  Item 'c' has items 'b' and 'd' as "neighbors". Assuming that the concept of
+  locality is 'bi-directional' for these data, we could also say that item
+  'f' is "closer to" item 'c' than item 'g' is. And we could say that item
+  'c' is "closer to" item 'f' than item 'b' is to item 'f'.
+</p>
+
+<p>
+  Incidentally, the data in our sequence need not be 'scalar'; it can be
+  of any dimensionality. For example, the following is also a 'sequence'
+  consisting of 7 'items', but each 'item' is a 3-dimensional vector:
+</p>
+
+<pre class='language-none'>
+[ [a,b,c], [d,e,f], [g,h,i], [j,k,l], [m,n,o], [p,q,r], [s,t,u] ]
+</pre>
+
+<p>
+  All "sequence" data has a concept of 'locality'. However, the specific way
+  in which the locality concept is formulated can be different, depending on
+  the data.
+</p>
+
+<p>
+  For example, if we are considering 'spatial' data, like a 1D "distance"
+  between items, then locality would most naturally be 'bi-directional'. The
+  distance between New York and Tokyo is <em>the same as</em> the distance
+  between Tokyo and New York. In other words, spatial locality goes
+  "in both directions" along a sequence.
+</p>
+
+<p>
+  Things get a little bit weirder when we are dealing with temporal data,
+  because time is more typically considered one-directional. If we were
+  working on a 'temporal forecasting' problem - such as predicting the
+  weather or the stock market - then we'd want to use <em>past</em> data
+  to <em>predict</em> the future, and not (inadvertently) use <em>future</em>
+  data points to help our model predict the future!
+</p>
+
+<p>
+  In a further 'twist', if we were working on an historical reconstruction
+  problem, our 'arrow of time' would be going <em>backwards</em>, and we'd
+  want our model to use <em>current</em> information to predict the
+  <em>past</em>.
+</p>
+
+<p>
+  Typically, there is no <em>syntactic</em> information in the data that
+  tells us how the locality concept has been formulated; there is nothing
+  in particular about the 'structure' of sequence data that 'encodes' the
+  locality concept. Rather, we need to understand the domain-specific
+  <em>meaning</em> of the data (ie, the data's <em>symantics</em>) in order
+  to generate the appropriate formulation of locality that best fits the
+  data and the analysis problem. Once you have used your 'domain knowledge'
+  and knowledge about the goals of the inference problem to formulate an
+  appropriate concept of sequential locality for your sequence data, it's
+  often a 'good idea' to choose a type of neural network designed to
+  incorporate that type of sequential data locality, so you can analyze
+  your data using a model that 'fits' or 'models' the data's semantics.
+</p>
+
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-arrows-h fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-arrows-v fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>recurrent networks</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Modeling sequence data with neurons.
+</h5>
+
+<p>
+  Convolution neurons incorporate a concept of 'spatial' locality, which we've
+  seen in the case of 2-dimensional data. Convolution neurons also encode
+  the 'idea' that 'nearby' data is 'important', whereas 'far away' data is
+  not as 'important'. This encoding is implemented by the 'local block' of
+  inputs that a convolution neuron uses to calculate its output; information
+  'within' the local 'block' is <em>included</em> in the output, whereas
+  'far away' information is <em>not</em> included in the input block, and
+  therefore not incorporated into the neuron's output.
+</p>
+
+<p>
+  Convolution neurons implement a general model of strongly-local bi-directional
+  locality. Although we've considered convolution neurons for analysis of
+  2-dimensional 'image' data, it's just as 'easy' to use convolutions for
+  1-dimensional "sequence" data, and convolution neurons are often used to
+  analyze sequence data.
+</p>
+
+<p>
+  Convolution neurons are most appropriate to use
+  when our sequence data fit the 'assumptions' of the convolution model:
+  the sequence data's semantics should include a concept of bi-directional
+  and strongly-local 'data locality'. We can try to increase the 'receptive
+  field' of the convolution neuron - either by increasing the depth of the
+  convolution network or by increasing the size of the convolution kernel -
+  but convolution neurons will (almost) always assume that bi-directional and
+  strongly-local data locality is an important concept in the data analysis
+  problem.
+</p>
+
+<p>
+  Convolution neurons are <em>not</em> appropriate for analysis of sequence
+  data in which data locality is one-directional (such as temporal sequence
+  data) <em>or</em> if long-range information or dependencies are expected
+  to be important for the inference problem. For these types of situations,
+  we need a different type of neural network.
+</p>
+
+<p>
+  Recurrent neural networks (often abbreviated "RNNs") are specifically designed
+  to model one-directional sequence data with potentially long-range
+  dependencies, such as time-series data and other types of sequence data.
+  RNNs accomplish this by allowing information from <em>previous</em> data
+  in the sequence to impact the processing of <em>subsequent</em> data
+  in the sequence. The RNN model is "one-directional", because <em>only</em>
+  information from <em>previous</em> data is incorporated into the processing
+  of subsequent data. The RNN model potentially captures "long-range
+  dependencies", because <em>any</em> of the previous data in the sequence
+  can potentially impact the processing of subsequent data.
+</p>
+
+<p>
+  In a typical 'feed forward' neural network (like a dense or convolution
+  network), we can think of each 'neuron' as having only <em>one single</em>
+  set of inputs; the inputs come from the <em>data</em>.
+</p>
+
+<p>
+  In a "recurrent" neural network, each 'neuron' in the layer actually has
+  <em>two different</em> sets of inputs. One set of inputs comes from the
+  data, just like in a conventional feed-forward network. The <em>second</em>
+  set of neuron inputs comes from the <em>previous</em> neuron in the
+  layer's sequence. This second neuron input is called the "recurrent"
+  connection. For the first neuron in the layer's sequence, the "recurrent"
+  connection can be initialized to some default value, typically zero.
+</p>
+
+<p>
+  A "recurrent" neuron produces <em>two</em> outputs, one that is a typical
+  neuron output, and a second output that is fed to the <em>next</em> neuron
+  in the layer's sequence. The next neuron in the sequence then receives its
+  typical input from the data, as well as the second "recurrent" input from
+  the previous neuron. Each recurrent neuron in the layer's sequence
+  <em>combines</em> information from its data input and its 'recurrent'
+  input from the previous neuron, in order to produce its typical output
+  <em>and</em> its 'recurrent' output, which is passed to the <em>next</em>
+  neuron in the layer's sequence. When the 'last' neuron in the layer's
+  sequence is reached, its 'recurrent' output has nowhere to go, so it
+  is simply 'thrown away' and not used.
+</p>
+
+<p>
+  In a typical recurrent neural network layer, there are the same number of
+  recurrent neurons in the layer as there are items in the input sequence
+  data. The <em>first</em> neuron in the layer receives its input from the
+  <em>first</em> item in the input sequence; it <em>also</em> receives the
+  'default' recurrent input (typically zero). The <em>second</em> neuron in
+  the recurrent layer receives its input from the <em>second</em> item in
+  the input sequence; it also receives its recurrent input from the
+  <em>first</em> neuron in the recurrent layer. This proceeds until we reach
+  the <em>last</em> neuron in the recurrent layer, which receives inputs
+  from the <em>last</em> item in the input sequence and the <em>next-to-last</em>
+  neuron in the recurrent layer.
+</p>
+
+<p>
+  In many cases, we are <em>only</em> interested in the output from the
+  <em>last</em> neuron in the recurrent layer, which incorporates information
+  from <em>all</em> the previous neurons in the layer through their recurrent
+  'connections'. This is common in natural language processing, where the
+  output from the last recurrent neuron captures something about the 'meaning'
+  of the sentence. However, in other cases we might want to use <em>all</em> the
+  outputs from the neurons in the recurrent layer. This is common when we
+  are using the recurrent neural-network layer to 'transform' an input sequence
+  into some other representational form, which will be further processed
+  later on in subsequent neural-network layers.
+</p>
+
+<p>
+  From the way RNNs process information, we can see that recurrent neural
+  networks are one-directional: information passes <em>only</em> from
+  <em>previous</em> neurons in the layer's sequence to <em>subsequent</em>
+  neurons in the layer, and <em>never</em> 'backwards' in the sequence.
+  However, recurrent neural networks can be made 'bi-directional' by 'connecting'
+  the outputs from two independent RNNs, one of which 'reads' the sequence
+  left-to-right, and the other of which 'reads' the sequence right-to-left.
+  The outputs from the left-to-right and right-to-left RNNs are typically
+  'combined' either by averaging or by concatenating.
+</p>
+
+<p>
+  RNNs can incorporate 'long range' information by 'passing' information
+  through the sequence of neurons in the layer through the 'recurrent'
+  connections between neurons. Information calculated from the <em>first</em>
+  item in the input sequence can be passed to the <em>last</em> neuron in the
+  recurrent layer through the recurrent connections, which must first go
+  through the <em>second</em> neuron in the layer's sequence, then through the
+  <em>third</em> neuron, then the <em>fourth</em>... etc. All the way to the
+  <em>last</em> neuron. 'Theoretically', these recurrent connections allow
+  the network layer to model 'long-range' dependencies among the sequence
+  data. In practice, however, information tends to get 'lost', 'wattered down'
+  or 'overwritten' as it passes through many recurrent connections. So, in
+  practice, naive recurrent networks like the one described here have only
+  very <em>limited</em> capacity to model long-range sequence dependencies.
+  In other words, RNNs are often said to have only "short-term memory".
+  Fortunately, we can 'fix' this problem by introducing some 'fancier'
+  computations.
+</p>
+
+<p>
+  Another problem with recurrent neural networks that isn't so 'easy' to
+  'fix' is that the 'dependencies' among neurons in the recurrent layer
+  makes it difficult to <em>parallelize</em> RNN calculations, leading to
+  <em>increased</em> computation times, compared to traditional feed-forward
+  neural networks.
+</p>
+
+<p>
+  In a traditional feed-forward neural network layer, the output of each
+  neuron in the layer is <em>completely independent</em> from the outputs of
+  every other neuron in the layer. Because each neuron in the layer calculates
+  its own output and does not depend on the outputs from any other neurons
+  in the layer, we can perform the calcuations required to produce <em>all</em>
+  the neurons' outputs <em>at the same time</em> (provided we have enough
+  processors, which we typically do on highly-parallel GPUs). Given enough
+  processors, calculating <em>all</em> the outputs from a feed-forward
+  neural-network layer takes <em>the same time</em> as calculating a <em>single</em>
+  neuron's output.
+</p>
+
+<p>
+  Alas, such is <em>not</em> the case for RNN layers. Those 'recurrent' connections
+  that allow the RNN to model long-range dependencies mean that we can't calculate
+  the <em>second</em> neuron's output until <em>after</em> we calculate the
+  output from the <em>first</em> neuron, because we <em>need</em> the first
+  neuron's recurrent output as input for the second neuron! Similarly, we
+  can't calculate the third neuron's output until <em>after</em> we've calcualated
+  the second neuron's recurrent output, which depends on the recurrent output
+  from the first neuron.
+</p>
+
+<p>
+  Because of the recurrent connections in an RNN, we need to calculate the
+  outputs of the RNN layer's neurons <em>sequentially</em>, one after the
+  other. So, if you have 256 neurons in your RNN layer, it will take 256
+  <em>times</em> as long to calculate the layer's outputs, compared to
+  a layer with a single neuron. In other words, the longer the input
+  sequence, the <em>longer</em> it takes to calcualate the outputs of an
+  RNN layer, no matter how many parallel processors you have available.
+  The inability of RNN layers to take advantage of parallel processing is
+  one of the <em>major</em> practical drawbacks of RNNs; they can take
+  <em>much</em> longer to train in practice, compared to traditional
+  feed-forward architectures.
+</p>
+
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

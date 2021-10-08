@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>lstm</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">LSTM</h1>
+  <p class="w3-xlarge">Long Short-Term Memory</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>Simple RNN Processing</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Naive recurrent connections.
+</h5>
+
+<p>
+  In a simple recurrent neural network (RNN), information is passed from
+  a previous neuron (say, at position t-1 in the sequence) to a subsequent
+  neuron (at position t) using the "recurrent connection" between subsequent
+  neurons. The <em>internal</em> structure defining the computation within
+  an RNN neuron can vary, but a 'typical' scenario is shown in the image
+  below.
+</p>
+
+<img src="./media/rnndetails.png" width=600 />
+
+<p>
+  In this case, consider the neuron in the middle (at position t). This
+  neuron receives its normal input from position Xt in the sequence, and there
+  is likely to be an input <em>weight</em> that is learned from the data
+  and used to 'scale' the input. Note that, for an RNN, <em>every</em> neuron
+  along the sequence uses the <em>same</em> shared input weights.
+</p>
+
+<p>
+  In addition to the normal input Xt, the neuron at position t in the sequence
+  receives its "recurrent" input from the neuron at position t-1 in the
+  sequence, which is shown as a horizontal arrow between neuron t-1 and
+  neuron t in the above figure. In practice, the RNN neuron may also have
+  a shared 'recurrent weight' that scales this second input.
+</p>
+
+<p>
+  In the image, you can see that the two inputs are both fed through a nonlinear
+  activation function (after their weights and any appropriate bias terms
+  have been applied); in this case the activation function is a hyperbolic
+  tangent activation (tanh), which scales the outputs to be between -1 and
+  +1.
+</p>
+
+<p>
+  After nonlinear activation, the neuron's main 'output' is shown as
+  ht in the figure, and its recurrent output to the next neuron in the
+  sequence is shown as a horizontal arrow leading to neuron t+1.
+</p>
+
+<p>
+  In practice, the main and recurrent inputs to a neuron could be
+  'combined' in any appropriate way, such as concatenating, summing or
+  averaging the two (weighted and possibly biased) inputs, either before
+  or after nonlinear activation.
+</p>
+
+<p>
+  Because the 'recurrent' information (the horizontal path through the
+  neurons in the above figure) is <em>transformed</em> or <em>altered</em>
+  as it passes through each successive neuron in the sequence, the information
+  from the <em>beginning</em> of the sequence is <em>degraded</em> as it
+  is processed, so by the time it reaches the <em>end</em> of the sequence,
+  most of the information from the first few neurons has been lost. This
+  loss of information along the sequence of neurons prevents simple RNN
+  models from 'retaining' long-range information across the input sequence.
+</p>
+
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-child fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-exchange fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>LSTM processing</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Using a bit more computation to increase RNN 'memory'.
+</h5>
+
+<p>
+  A naive implementation of a recurrent neural network (RNN) is computationally
+  very simple, but it suffers from a serious problem: it is unable to properly
+  model long-range dependencies in practice. Long Short-Term Memory (LSTM)
+  neurons solve this problem by performing a more complicated series of
+  computational operations within each neuron in the sequence.
+</p>
+
+<p>
+  Because the LSTM neuron performs a more complex computation, it will take
+  longer to run, compared to the simpler naive RNN. LSTM networks also have
+  more trainable parameters, compared to RNNs, so LSTM networks typically
+  require more training data and longer times to reliably train.
+</p>
+
+<p>
+  In general, adding more computation and parameters to a neural network is
+  a <em>cost</em>; it requires additional resources to support the additional
+  computation and parameters. The addition is only 'worth it' if there is
+  some <em>benefit</em> to the new computation and parameters that offsets
+  the additional cost. In the case of LSTM neurons, the additional computation
+  and parameters improves the ability of LSTM networks to accurately model
+  long-range dependencies in the data. So, for problems that <em>require</em>
+  accurate modeling of long-range dependencies, LSTMs might be 'worth it'.
+  In some cases, however, simple RNNs can perform 'just as well' as LSTMs,
+  but at a lower cost.
+</p>
+
+<p>
+  In general, it is typically a 'good idea' to try
+  'matching' the capabilities and costs of a statistical model to the
+  requirements of the data analysis problem, so the 'appropriate' model can
+  be used to analyze the data reliably, while minimizing unnecessary
+  analysis costs. In practice, it can be challenging to identify the 'best
+  fit' statistical model for a given analysis problem. Typically, it will
+  require <em>additional</em> computational costs to perform reliable
+  "model selection".
+</p>
+
+<h5>So, how to LSTMs work?</h5>
+
+<p>
+  The image below depicts the basic functioning of an LSTM neuron. Without
+  even 'understanding' anything about the image, it's clear to see that the
+  LSTM neuron is much more 'complex' than the simple RNN neuron shown in
+  the previous figure. For one thing, there are obviously many more branches
+  and turns showing the various different 'pathways' that information can
+  flow through the LSTM neuron. In contrast to the single tanh nonlinear
+  activation used in the RNN, LSTM neurons have <em>two</em> different
+  tanh activations and <em>three</em> sigmoid nonlinear activations (depicted
+  &sigma; in the figure). Finally, in addition to the "recurrent" input to
+  the RNN neuron, LSTM neurons <em>additionally</em> pass their 'normal'
+  output as a 'recurrent' connection to the next neuron in the sequence.
+</p>
+
+<img src="./media/lstmdetails.png" width=600 />
+
+<p>
+  Let's look a litte more closely into how LSTM neurons work. If you look
+  carefully at the above figure, you'll see three yellow boxes with &sigma;
+  inside them; these indicate sigmoid activation functions, which output a
+  value between zero and one. If you look a litte more closely, you'll see
+  that each yellow &sigma; box is directly connected by an <em>outgoing</em>
+  arrow to a pink X, which indicates pointwise multiplication. This
+  'pattern' of sigmoid activation followed by pointwise multiplication is
+  called a "gate" (or, a 'soft gate'). Gates are computational ways to
+  determine 'how much' information is 'passed through' or 'retained', and
+  how much information is 'deleted' or 'forgotten' by a neuron.
+</p>
+
+<p>
+  So, how do "gates" work? Let's think about it. What happens when you
+  <em>multiply</em> something by zero? Whatever it was before, it is
+  now 'deleted' and replaced by zero. In other words, multiplying a number
+  by zero 'forgets' the number's previous value. So, what happens when
+  something is multiplied by one? The original value is retained, or
+  'remembered'. So, multiplying information by either zero or one either
+  completely 'forgets' the information, or completely 'remembers' it. This
+  could be called a 'hard gate' or a 'binary gate'. Well, then what happens
+  to information if you multiply it by a number <em>between</em> zero and
+  one? In these 'soft' cases, you could say that the original value of the
+  number is 'partially retained', depending on how close the multiplying
+  value is to 1. A 'soft gate', then, has the capacity to completely forget,
+  completely remember <em>or</em> 'partially remember' information.
+</p>
+
+<p>
+  There are <em>three</em> such 'soft gates' in a typical LSTM neuron. The
+  first gate (reading the figure left-to-right) receives inputs from the
+  data (Xt) and the <em>output</em> of the previous neuron (h_t-1), applies
+  any input weights and/or bias terms, and then uses sigmoid activation to
+  generate a soft gate that is applied to the 'recurrent' input to the
+  neuron. In the context of LSTM neurons, the 'recurrent' connection is sometimes
+  called the "cell state". If the output from the neuron's first gate is
+  zero, the previous 'cell state' is completely 'forgotten', and if the
+  gate's output is one, the previous cell state is completely 'remembered'
+  by this neuron.
+</p>
+
+<p>
+  The second gate in the LSTM neuron determines 'how much' of the neuron's
+  inputs is <em>added</em> to the cell state. First, the LSTM neuron applies
+  tanh nonlinear activation to the neuron's inputs. Then, depending on the
+  output from the second gate, this information is either added to the
+  cell state (gate output is 1) or not (gate output is 0) (or partially so,
+  for intermediate values of the gate's output). At this point, the cell
+  state or 'recurrent' output for this neuron is completely determined, and it
+  can be passed to the next neuron in the sequence.
+</p>
+
+<p>
+  Finally, the LSTM neuron needs to calculate its output. It uses the cell
+  state to do so. First, the cell state is transformed using tanh nonlinear
+  activation. Remember that the cell state can incorporate varying degrees
+  of previous information from earlier neurons in the sequence, combined
+  with a varying 'amount' of information from this neuron's inputs, depending
+  on the outputs of the neuron's gates. After nonlinear tanh activation,
+  the third gate determines 'how much' of the current cell state is passed
+  through to the neuron's output. Notice that the neuron's output is
+  <em>also</em> passed to the next neuron in the sequence.
+</p>
+
+<p>
+  Well, that's how an LSTM neuron works, computationally.
+</p>
+
+<p>
+  So, how does this additional computation help the LSTM neuron model
+  long-range dependencies?
+</p>
+
+<p>
+  Well, let's take a look at what some specific gate outputs might do to the
+  cell state of the neuron. For example, what if the output of the first
+  gate is zero? Well, then the cell state entering the neuron is completely
+  'forgotten'. Okay, what if the first gate's output is one? Well, then
+  <em>all</em> of the input cell state is <em>retained</em> without
+  modification. If the output of the <em>second</em> gate is then zero,
+  the <em>previous</em> cell state is passed, unaltered, to the next
+  neuron in the sequence. If there are a series of LSTM neurons whose first
+  two gates output 1,0, then the cell state will pass through <em>all</em>
+  those neurons without changing at all. In this way, LSTM neurons are
+  capable of modeling long-range dependencies in the data by <em>retaining</em>
+  the cell state across many neurons in the sequence. Of course, it may not
+  always be appropriate to retain all the previous cell state. The various
+  input weights and bias terms of the LSTM neuron will 'learn' from the
+  training data 'how much' cell state to 'pass through' the LSTM sequence
+  to 'best fit' the training data.
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

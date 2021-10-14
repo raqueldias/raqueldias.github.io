@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>mha</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/lato.css">
+<link rel="stylesheet" href="css/montserrat.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/prism.css">
+<script src="js/prism.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">home</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-grey w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">multi-head attention</h1>
+  <p class="w3-xlarge">keeping your eye on the data prize</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-threequarter">
+
+<h1>conceptualizing multi-head attention</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Learning what's important.
+</h5>
+
+<p>
+  The heart of the transformer-based approach for sequence data analysis is
+  the multi-head attention neural-network layer. Multi-head attention layers
+  continue a general trend in neural-network design from larger numbers of
+  simpler neurons (and more trainable parameters) to smaller numbers of more
+  complex neurons (and fewer trainable parameters).
+</p>
+
+<p>
+  As we saw earlier in the course, the basic 'building block' of neural
+  networks is the simple linear model, which can be implemented as a single
+  'dense' neuron. These 'simple' neurons perform 'simple' computations:
+  y=mx+b, and that's it. The statistical modeling 'power' of early neural
+  networks came primarily by 'connecting' very large numbers of these
+  very simple 'building blocks' into larger networks, and using simple
+  nonlinear activation functions to prevent the large network from 'collapsing'
+  back into a simple linear model.
+</p>
+
+<p>
+  We've already seen that large networks built from many simple units are
+  mathematically-provable 'universal function approximators'. So, theoretically,
+  combinations of simple neural building-blocks are sufficient to implement
+  nearly <em>any</em> more complex neural network, or more generally, nearly
+  <em>any</em> mathematical function, to arbitrary precision.
+</p>
+
+<p>
+  However, from a practical perspective, very large combinations of simple
+  processing units can be an <em>inefficient</em> approach to statistical
+  modeling. Large networks built from simple units require <em>large</em>
+  numbers of trainable parameters, which can make them difficult to
+  reliably train and use 'in the real world'.
+</p>
+
+<p>
+  To combat this practial issue with large networks, researchers have tried
+  to simultaneously <em>increase</em> the computational power of individual
+  neurons while <em>decreasing</em> the number of trainable parameters in
+  the network. In other words, researchers have tried to increase the
+  computational 'power' of neural networks and decrease their parameter
+  count by making neurons more complex, while making networks simpler.
+</p>
+
+<p>
+  It's important to note, however, that the process of building smaller
+  networks out of more complex neural units can sometimes come with an
+  associated cost. Many times, creating a more complex neuron also makes
+  the neuron more 'specialized' in what it can do, especially if you also
+  <em>decrease</em> the number of trainable parameters. In statistics,
+  you can't ever really 'get something for free'. If you want a powerful
+  network with a small number of parameters, you are almost certainly going
+  to lose some 'generalizability'.
+</p>
+
+<p>
+  For example, consider the complex computations done within the LSTM
+  neuron. These complex computations allow the LSTM network to model
+  long-range dependencies among data items in a sequence. Statistically,
+  however, the same computations also represent <em>assumptions</em>
+  about the structure and meaning of the data. And when these assumptions
+  are strongly violated, the statistical model might produce biased
+  or misleading results.
+</p>
+
+<p>
+  The 'modular' nature of neural networks can make them robust to violations
+  of the assumptions of their individual building blocks. For example, if
+  the data strongly violates the assumptions of an LSTM, perhaps using
+  2, 4, 8 or 16 'layers' of LSTMs could 'relax' the assumptions of the
+  <em>overall</em> neural network model enough to produce reliable results.
+</p>
+
+<p>
+  However, it's usually a good idea to try to 'match' the statistical
+  assumptions of the model with the anticipated 'structure' of the data,
+  so the model's assumptions are not strongly violated in practice. In the
+  case of neural networks, this can be difficult, because it's not clear
+  how the assumptions of individual 'units' in the network 'translate' into
+  assumptions of the entire network. In the 'extreme' case, we know that
+  'linear' neurons can become 'universal function approximators' when
+  combined into larger networks, so it's clear that - in at least some
+  cases - the assumptions made by an individual neuron can be irrelevant
+  to the overall network model's constraints.
+</p>
+
+<p>
+  Multi-head attention is one of the mose 'extreme' cases used in practice,
+  in which the 'amount of computation' done 'inside' the individual neuron
+  is very complex. Networks using multi-head attention are also achieving
+  state-of-the-art performance in a large number of inference tasks, so there
+  seems to be 'something' to this approach.
+</p>
+
+<p>
+  Conceptually, multi-head attention is a mechanism for determining, for a
+  given 'item' in a sequence, which 'other items' in the sequence are
+  'important' for 'understanding' the item's 'meaning'. More 'quantitatively',
+  multi-head attention (or 'attention', in general) is a mechanism for
+  encoding how 'correlated' a given item is with <em>all the other items</em>
+  in the sequence.
+</p>
+
+<p>
+  It might make more sense to think about 'attention' from the point of view
+  of long-range dependencies in a sequence. What does a 'long-range dependency'
+  actually mean? Well, if the value at one position in a sequence is
+  'dependent' on the value of another item in the sequence (whether it is
+  nearby or far away), then <em>knowing</em> the value of the item at one
+  position gives you (partial) information about the value of the item
+  at the other position. In other words, 'dependent' items take on values that
+  are 'correlated' in some way.
+</p>
+
+<p>
+  The 'purpose' of attention-based systems is to determine the extent to
+  which values of specific items in the sequence are correlated with one another, and use these
+  correlations to help 'encode' the semantics of the sequence.
+</p>
+
+<p>
+  In the area of natural language processing, these 'correlations' are
+  analogous to 'word associations'. For example, if you see a sentence
+  starting with the words:
+</p>
+
+<pre class='language-none'>
+My car is ...
+</pre>
+
+<p>
+  You might 'guess' that, somewhere in the next few words, you might
+  find something like "fast", "fuel-efficient", "expensive", "broken"
+  etc. But you probably <em>won't</em> find words like "juicy", "existential",
+  "relaxing" or "flamboyant".
+</p>
+
+<p>
+  That is, certain words tend to occur together in sentences, even if they
+  are separated from one another by other words, while other words tend
+  <em>not</em> to co-occur in sentences.
+</p>
+
+<p>
+  Attention mechanisms are just a methodology to 'learn' the types of
+  associations present in the training sequence data.
+</p>
+
+<p>
+  Multi-head attention isn't something 'magical' on top of attention; it
+  just means that <em>many different</em> attention mechanisms are being
+  applied to the same sequence data at the same time. Each individual
+  attention mechanism can 'learn' a 'different' set of associations among
+  items in the sequence, and these different associations are then combined
+  to calculate the 'multi-head attention'.
+</p>
+
+
+</div>
+<div class="w3-quarter w3-center">
+<i class="fa fa-compass fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+</div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-content">
+<div class="w3-quarter w3-center">
+<i class="fa fa-cogs fa-5x w3-padding-64 w3-text-blue w3-margin-right"></i>
+</div>
+
+<div class="w3-threequarter">
+
+<h1>implementing multi-head attention</h1>
+
+<h5 class="w3-padding-32 w3-text-grey">
+  Tensorizing the dictionary.
+</h5>
+
+<p>
+  So, how do we implement an 'attention mechanism' in a computer?
+</p>
+
+<p>
+  Attention mechanisms are built on the concept of a 'dictionary'.
+</p>
+
+<p>
+  A 'dictionary' in computing might not perfectly correspond to your existing
+  definition of 'dictionary', although it's probably closer than you think.
+  A language 'dictionary' is a way for you to 'look up' the 'definition'
+  of a 'word' in the language. There are actually <em>three</em> important
+  components of a language dictionary:
+  <ul>
+    <li>query - the specific 'word' you want to 'look up'</li>
+    <li>key - a list of all the words in the dictionary</li>
+    <li>value - the 'definition' associated with each 'key' (word in the dictionary)</li>
+  </ul>
+</p>
+
+<p>
+  The physical 'dictionary' - the 'book' you have on your shelf - consists
+  of the keys and values. The book contains all the words in the language,
+  and each word's corresponding definition. In human langauge, each word
+  corresponds precisely to a single definition in the dictionary, but this
+  need not always be the case. More generally, a 'key' in a dictionary
+  might map to many different 'values', and one could also 'weight' the
+  key-value 'associations' in the dictionary, so some values might be
+  quantitatively 'more associated' with a given key than others.
+</p>
+
+<p>
+  In the attention system, the query, keys and values are <em>each</em>
+  derived from the input sequence data. Specifically, the query, keys and
+  values are <em>independent pointwise linear projections</em> of the
+  input data.
+</p>
+
+<p>
+  Linear projections are often used in neural networks. In the case of
+  attention mechanisms, <em>pointwise</em> linear projections are used
+  to calculate the query, keys and values for <em>each</em> item in
+  the sequence. Let's look at the calculation of the queries in more
+  detail; the calculations of keys and values is <em>exactly</em> the
+  same, but just using a <em>different</em> linear projection.
+</p>
+
+<p>
+  First, recall that a 'sequence' data is a vector of items, each item
+  having some 'dimension'. For example, the following sequence has
+  4 items, each item having 3 dimensions:
+</p>
+
+<pre class='language-none'>
+[ [a,b,c], [d,e,f], [g,h,i], [j,k,l] ]
+</pre>
+
+<p>
+  Next, we need to define the 'dimensionality' of the queries. We are
+  free to choose any dimensionality we like; in this case we'll choose
+  2 dimensions for our queries. The dimensionality of the query determines
+  the number of neurons (or "units") in the 'dense' layer we'll use
+  for our pointwise linear projection. So, in this case, we'd specify
+  a dense layer with 2 units, in order to 'project' our sequence data
+  into 2 dimensions.
+</p>
+
+<p>
+  Operationally, that's about it. If we analyze the above sequence data
+  using a 'dense' neural-network layer with 2 units, tensorflow will
+  create a layer with 3 input weights to each neuron (one for each dimension in the
+  input sequence's items) and 2 outputs (one for each unit in the
+  layer specification). So, we have an 8-parameter network layer:
+  each neuron has 3 input weights plus a bias term, and there are
+  2 neurons, so (3+1)*2=8 total trainable parameters in the layer.
+</p>
+
+<p>
+  Keep in mind that this setup applies <em>the same</em> linear
+  projection to <em>each</em> item in the sequence! This is perhaps a
+  limitation of our model, but it also keeps the parameter count low, and
+  the number of parameters does <em>not</em> depend on sequence length,
+  so we can analyze sequences of <em>any</em> length. This can be important
+  for natural language processing, in which sentences can obviously have
+  very different lengths.
+</p>
+
+<p>
+  So, the attention mechanism first 'learns' a pointwise linear projection
+  that calculates 'queries' from the sequence data. Similar pointwise
+  linear projections are used to calculate 'keys' and 'values' from the
+  same sequence data, so the queries, keys and values can be different.
+</p>
+
+<p>
+  In the case of multi-head attention, we just 'replicate' the linear
+  projections multiple times. So, instead of generating a single
+  query-key-value triplet using 3 different pointwise linear projections,
+  we can generate as many different query-key-value systems as we'd like,
+  each of which can 'learn' its own pointwise linear projections.
+</p>
+
+<p>
+  In the attention mechanism, the query sequence is an encoding of each
+  item in the sequence, dependent on the item's input value. The key sequence is an encoding of <em>how much
+  each of the items in the sequence are associated with one another</em>, also
+  dependent on the specific values present in the input sequence. The keys
+  capture the 'correlations' among sequence items.
+</p>
+
+<p>
+  For a given item in the query sequence (let's say the <em>first</em> item),
+  the first thing we do is to multiply the query item by <em>each</em> item
+  in the key sequence, to generate another sequence of items that represents
+  <em>how important</em> the value of each item is in the sequence for
+  determining the <em>meaning</em> of the first sequence item. We've now
+  calculated the <em>associations</em> between the first item in the sequence
+  (ie, the first 'query') and <em>every</em> possible value in the sequence.
+  Typically, these associations are 'normalized' using softmax activation,
+  so they are each at least zero, and they all sum to one.
+</p>
+
+<p>
+  The calculated 'associations' are then used as 'weights' and applied to
+  the value sequence (which is also a pointwise linear projection of the
+  input data, and so dependent on the input values). We simply multiply each value by its corresponding
+  association 'weight' to determine 'how much' the value 'contributes'
+  to the 'meaning' of the first query in the sequence. After multiplying the
+  values by their association weights, we sum them all up to get the output
+  'score' for the first query in the sequence.
+</p>
+
+<p>
+  Finally, we just need to 'repeat' the entire calculation for <em>every</em>
+  query in the sequence, to calculation the attention layer's outputs
+  for the entire input sequence.
+</p>
+
+<p>
+  The <em>entire</em> attention process is typically implemented using
+  high-rank tensors, so <em>all</em> the query-key-value associations
+  can be calculated <em>simultaneously</em> in one set of operations on
+  the GPU. This makes attention calculations <em>very</em> fast.
+</p>
+
+<p>
+  Intuitively, we can think of the attention mechanism as calculating
+  a 'transformation' of the input sequence into a semantic representation,
+  based on the patterns of correlations among the various items in the
+  sequence. These 'patterns of correlations' are what is 'learned'
+  by the neural network by 'tuning' the parameters used to calculate
+  linear projections of the sequence into 'query', 'key' and 'value'
+  sequences.
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">what you have learned == what you can do</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <p>end.</p>
+ </div>
+</footer>
+
+</body>
+</html>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Button } from '@/components/ui/button.jsx'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
-import { Badge } from '@/components/ui/badge.jsx'
-import { Separator } from '@/components/ui/separator.jsx'
+import { Button } from './components/ui/button.jsx'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card.jsx'
+import { Badge } from './components/ui/badge.jsx'
+import { Separator } from './components/ui/separator.jsx'
 import { 
   Dna, 
   Brain, 
@@ -11,7 +11,7 @@ import {
   BookOpen, 
   Users, 
   Mail, 
-  Github,
+  Code,
   ExternalLink,
   ChevronRight,
   Beaker,
@@ -309,7 +309,7 @@ function App() {
                   Email
                 </Button>
                 <Button variant="outline" size="sm">
-                  <Github className="w-4 h-4 mr-2" />
+                  <Code className="w-4 h-4 mr-2" />
                   GitHub
                 </Button>
               </div>

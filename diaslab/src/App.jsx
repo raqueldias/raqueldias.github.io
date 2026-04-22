@@ -86,10 +86,10 @@ function App() {
           <Beaker className="w-4 h-4" />
           AI Research Laboratory
         </div>
-        <h1 className="text-5xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
           Dias Lab
         </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+        <p className="text-center text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           Applying cutting-edge Artificial Intelligence techniques to advance our understanding of 
           biological systems, from protein structures to genetic diseases, driving innovation in 
           precision medicine and agriculture.
